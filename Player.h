@@ -20,12 +20,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#ifndef PROJECT_TELEPORT_PLAYER_H
+#define PROJECT_TELEPORT_PLAYER_H
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
 
-int main(int argc, char *argv[]) {
-  Game game = Game();
-  game.runEventLoop();
+class Player {
+private:
+    glm::vec3 eye;
+    glm::vec3 at;
+    glm::vec3 up;
+    GLfloat rotation;
 
-  return 0;
-}
+public:
+    Player(glm::vec3 eye, glm::vec3 at, glm::vec3 up, GLfloat r);
+    void moveForward(GLfloat distance);
+    void moveRight(GLfloat distance);
+    void moveUp(GLfloat distance);
+    void lookRight(GLfloat distance);
+    glm::mat4 getCameraDirection();
+};
+
+#endif //PROJECT_TELEPORT_PLAYER_H

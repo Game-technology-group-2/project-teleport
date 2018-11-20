@@ -20,12 +20,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#ifndef PROJECT_TELEPORT_SHADER_H
+#define PROJECT_TELEPORT_SHADER_H
+
+#include <GL/glew.h>
+#include <string>
+
+#include "rt3d.h"
 
 
-int main(int argc, char *argv[]) {
-  Game game = Game();
-  game.runEventLoop();
+class Shader {
+public:
+    static GLuint init(const std::string & vertexShaderPath,
+                       const std::string & fragmentShaderPath);
 
-  return 0;
-}
+private:
+    Shader();
+};
+
+
+#endif // PROJECT_TELEPORT_SHADER_H

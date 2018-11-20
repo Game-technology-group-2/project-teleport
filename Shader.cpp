@@ -20,12 +20,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#include "Shader.h"
 
+#include <string>
 
-int main(int argc, char *argv[]) {
-  Game game = Game();
-  game.runEventLoop();
+#include "constants.h"
+#include "rt3d.h"
 
-  return 0;
+Shader::Shader() = default;
+
+GLuint Shader::init(const std::string & vertexShaderPath,
+                    const std::string & fragmentShaderPath) {
+    rt3d::initShaders(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
+
+    return 0;
 }
+

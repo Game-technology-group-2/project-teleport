@@ -20,12 +20,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#ifndef PROJECT_TELEPORT_DRAWABLEOBJECT_H
+#define PROJECT_TELEPORT_DRAWABLEOBJECT_H
+
+#include <GL/glew.h>
+#include <string>
+
+class Mesh {
+private:
+    GLuint meshIndexCount;
+    GLuint meshObject;
+
+public:
+    explicit Mesh(const std::string & objectPath);
+    GLuint getMeshIndexCount();
+    GLuint getMeshObject();
+};
 
 
-int main(int argc, char *argv[]) {
-  Game game = Game();
-  game.runEventLoop();
-
-  return 0;
-}
+#endif // PROJECT_TELEPORT_DRAWABLEOBJECT_H

@@ -20,12 +20,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#ifndef PROJECT_TELEPORT_ASSETSLOADER_H
+#define PROJECT_TELEPORT_ASSETSLOADER_H
+
+#include <GL/glew.h>
+#include <string>
+#include <vector>
 
 
-int main(int argc, char *argv[]) {
-  Game game = Game();
-  game.runEventLoop();
+GLuint loadTexture(std::string fileName);
 
-  return 0;
-}
+void loadCubeMap(const std::vector<std::string> & fileName, std::vector<GLuint> & texID);
+
+
+#endif // PROJECT_TELEPORT_ASSETSLOADER_H
