@@ -15,14 +15,15 @@ set(srcs main.cpp
         Shader.h Shader.cpp)
 add_executable(project_teleport ${srcs})
 
-INCLUDE(FindPkgConfig)
+find_package(PkgConfig)
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(glm REQUIRED)
+
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+PKG_SEARCH_MODULE(GLM REQUIRED glm)
 
 target_link_libraries(
         project_teleport
@@ -36,7 +37,6 @@ target_link_libraries(
 include_directories(
         ${OPENGL_INCLUDE_DIR}
         ${GLEW_INCLUDE_DIRS}
-        ${GLM_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
         ${SDL2IMAGE_INCLUDE_DIRS}
         ${SDL2TTF_INCLUDE_DIRS}
