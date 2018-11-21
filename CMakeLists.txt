@@ -22,7 +22,7 @@ find_package(GLEW REQUIRED)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-PKG_SEARCH_MODULE(GLM REQUIRED glm)
+#PKG_SEARCH_MODULE(GLM REQUIRED glm)
 
 target_link_libraries(
         project_teleport
@@ -34,6 +34,7 @@ target_link_libraries(
 
 target_include_directories(
         project_teleport PRIVATE
+        libs/glm
         ${OPENGL_INCLUDE_DIR}
         ${GLEW_INCLUDE_DIRS}
         ${GLM_INCLUDE_DIRS}
