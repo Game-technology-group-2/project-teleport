@@ -6,7 +6,11 @@ A game written in C++, using OpenGL and SDL2, glm and Glew.
 
 
 ## Dependencies ##
-* None for now
+* SDL2
+* SDL2_image
+* OpenGL
+* Glew
+* GLM (included as a submodule)
 
 ## Build ##
 ### GNU/Linux ###
