@@ -31,11 +31,17 @@
 
 class Shader {
 public:
-    static GLuint init(const std::string & vertexShaderPath,
-                       const std::string & fragmentShaderPath);
+    Shader();
+
+    GLuint initialize(const std::string & vertexShaderPath,
+                      const std::string & fragmentShaderPath);
+    void use();
+    void setUniformMatrix4fv(const char* uniformName, const GLfloat *data);
+
+    GLuint getId();
 
 private:
-    Shader();
+    GLuint id;
 };
 
 

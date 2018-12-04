@@ -12,6 +12,7 @@
 
 #include "Mesh.h"
 #include "Player.h"
+#include "Shader.h"
 
 
 class Game {
@@ -25,8 +26,8 @@ private:
     SDL_GLContext mainContext; // OpenGL context handle
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
-    GLuint skyboxShader;
-    GLuint textureShader;
+    Shader skyboxShader;
+    Shader textureShader;
     std::vector<Mesh> meshObjects;
     std::vector<GLuint> textures;
     std::vector<GLuint> skybox = std::vector<GLuint>(6);
