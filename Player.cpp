@@ -53,3 +53,7 @@ glm::mat4 Player::getCameraDirection() {
     glm::vec3 direction = glm::vec3(eye.x + 1.0f * std::sin(rotation * Constants::degreeToRadian), eye.y, eye.z - 1.0f * std::cos(rotation * Constants::degreeToRadian));
     return glm::lookAt(eye, direction, up);
 }
+
+void Player::teleport(glm::vec3 newPosition) {
+    this->eye = newPosition;
+}

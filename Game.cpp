@@ -140,7 +140,7 @@ void Game::init() {
 
     meshObjects = {Mesh(assetsPaths::cubeObject),};
 
-    this->player = Player(glm::vec3(-2.0f, 1.0f, 8.0f),
+    this->player = Player(Constants::spawnPosition, // glm::vec3(-2.0f, 1.0f, 8.0f),
                           glm::vec3(0.0f, 1.0f, -1.0f),
                           glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
@@ -188,6 +188,12 @@ void Game::handleUserInput() {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glEnable(GL_CULL_FACE);
     }
+
+    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
+
+    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
+
+    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
 }
 
 void Game::draw() {
