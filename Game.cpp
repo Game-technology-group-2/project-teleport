@@ -140,7 +140,7 @@ void Game::init() {
 
     meshObjects = {Mesh(assetsPaths::cubeObject),};
 
-    this->player = Player(glm::vec3(-2.0f, 1.0f, 8.0f),
+    this->player = Player(Constants::spawnPosition, // glm::vec3(-2.0f, 1.0f, 8.0f),
                           glm::vec3(0.0f, 1.0f, -1.0f),
                           glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
 
@@ -150,15 +150,11 @@ void Game::init() {
 }
 
 void Game::loadShaders() {
-    this->skyboxShader = rt3d::initShaders(
-            assetsPaths::cubeMapShader.vertex.c_str(),
-            assetsPaths::cubeMapShader.fragment.c_str()
-    );
+    this->skyboxShader.initialize(assetsPaths::cubeMapShader.vertex,
+                                  assetsPaths::cubeMapShader.fragment);
 
-    this->textureShader = rt3d::initShaders(
-            assetsPaths::texturedShader.vertex.c_str(),
-            assetsPaths::texturedShader.fragment.c_str()
-    );
+    this->textureShader.initialize(assetsPaths::texturedShader.vertex,
+                                   assetsPaths::texturedShader.fragment);
 }
 
 void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
@@ -192,6 +188,12 @@ void Game::handleUserInput() {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glEnable(GL_CULL_FACE);
     }
+
+    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
+
+    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
+
+    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
 }
 
 void Game::draw() {
@@ -208,9 +210,8 @@ void Game::draw() {
     mvStack.push(player.getCameraDirection());
 
     // Skybox as single cube using cube map
-    glUseProgram(this->skyboxShader);
-    rt3d::setUniformMatrix4fv(this->skyboxShader, "projection",
-                              glm::value_ptr(projection));
+    this->skyboxShader.use();
+    this->skyboxShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
 
     glDepthMask(GL_FALSE); // Make sure writing to update depth test is off
     auto mvRotOnlyMat3 = glm::mat3(mvStack.top());
@@ -219,8 +220,7 @@ void Game::draw() {
     glCullFace(GL_FRONT); // Drawing inside of cube!
     glBindTexture(GL_TEXTURE_CUBE_MAP, skybox[0]);
     mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.5f, 1.5f, 1.5f));
-    rt3d::setUniformMatrix4fv(this->skyboxShader, "modelview",
-                              glm::value_ptr(mvStack.top()));
+    this->skyboxShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
     rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(),
                           meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
     mvStack.pop();
@@ -230,9 +230,8 @@ void Game::draw() {
     // Back to remainder of rendering
     glDepthMask(GL_TRUE); // Make sure depth test is on
 
-    glUseProgram(this->textureShader);
-    rt3d::setUniformMatrix4fv(this->textureShader, "projection",
-                              glm::value_ptr(projection));
+    this->textureShader.use();
+    this->textureShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
 
     // Draw a cube for ground plane
     glBindTexture(GL_TEXTURE_2D, textures[1]);
@@ -241,7 +240,7 @@ void Game::draw() {
     mvStack.push(mvStack.top());
     mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, -0.1f, -10.0f));
     mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 0.1f, 20.0f));
-    rt3d::setUniformMatrix4fv(this->textureShader, "modelview", glm::value_ptr(mvStack.top()));
+    this->textureShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
     rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(), meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
     mvStack.pop();
 

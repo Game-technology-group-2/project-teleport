@@ -39,6 +39,7 @@ public:
     void moveRight(GLfloat distance);
     void moveUp(GLfloat distance);
     void lookRight(GLfloat distance);
+    void teleport(glm::vec3 newPosition);
     glm::mat4 getCameraDirection();
 };
 

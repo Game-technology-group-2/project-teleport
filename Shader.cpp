@@ -27,12 +27,24 @@
 #include "constants.h"
 #include "rt3d.h"
 
+
 Shader::Shader() = default;
 
-GLuint Shader::init(const std::string & vertexShaderPath,
-                    const std::string & fragmentShaderPath) {
-    rt3d::initShaders(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
-
-    return 0;
+GLuint Shader::initialize(const std::string & vertexShaderPath,
+                          const std::string & fragmentShaderPath) {
+    this->id = rt3d::initShaders(vertexShaderPath.c_str(),
+                                 fragmentShaderPath.c_str());
 }
 
+void Shader::use() {
+    glUseProgram(this->id);
+}
+
+void Shader::setUniformMatrix4fv(const char* uniformName, const GLfloat *data) {
+    GLint uniformIndex = glGetUniformLocation(this->id, uniformName);
+    glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, data);
+}
+
+GLuint Shader::getId() {
+    return this->id;
+}
