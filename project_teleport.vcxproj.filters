@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{0bbd4289-1ea9-4f2a-92c5-bff8739ae1d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assetsLoader.cpp">
@@ -68,5 +71,22 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes">
+      <Filter>Misc</Filter>
+    </None>
+    <None Include=".gitignore">
+      <Filter>Misc</Filter>
+    </None>
+    <None Include=".gitmodules">
+      <Filter>Misc</Filter>
+    </None>
+    <None Include=".travis.yml">
+      <Filter>Misc</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>Misc</Filter>
+    </None>
   </ItemGroup>
 </Project>
