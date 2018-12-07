@@ -33,8 +33,8 @@ class Shader {
 public:
     Shader();
 
-    GLuint initialize(const std::string & vertexShaderPath,
-                      const std::string & fragmentShaderPath);
+    void initialize(const std::string & vertexShaderPath,
+                    const std::string & fragmentShaderPath);
     void use();
     void setUniformMatrix4fv(const char* uniformName, const GLfloat *data);
 

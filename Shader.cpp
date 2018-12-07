@@ -30,8 +30,8 @@
 
 Shader::Shader() = default;
 
-GLuint Shader::initialize(const std::string & vertexShaderPath,
-                          const std::string & fragmentShaderPath) {
+void Shader::initialize(const std::string & vertexShaderPath,
+                        const std::string & fragmentShaderPath) {
     this->id = rt3d::initShaders(vertexShaderPath.c_str(),
                                  fragmentShaderPath.c_str());
 }
