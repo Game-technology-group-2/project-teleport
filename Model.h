@@ -50,14 +50,12 @@ unsigned int TextureFromFile(const char *path, const std::string &directory,
 
 class Model {
 public:
-    /*  Model Data */
     // stores all the textures loaded so far, to make sure textures aren't loaded more than once.
     std::vector<Texture> textures_loaded;
     std::vector<Mesh> meshes;
     std::string directory;
     bool gammaCorrection;
 
-    /*  Functions   */
     // constructor, expects a filepath to a 3D model.
     Model(std::string const & path, bool gamma = false);
 
@@ -65,7 +63,6 @@ public:
     void draw(Shader shader);
 
 private:
-    /*  Functions   */
     // loads a model with supported ASSIMP extensions from file
     // and stores the resulting meshes in the meshes vector.
     void loadModel(std::string const &path);
