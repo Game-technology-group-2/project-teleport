@@ -12,6 +12,7 @@ compiler:
 addons:
   apt:
     packages:
+      - libassimp-dev
       - libsdl2-dev
       - libsdl2-image-dev
       - libglm-dev
