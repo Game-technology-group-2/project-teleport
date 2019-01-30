@@ -25,7 +25,6 @@
 #include <string>
 
 #include "constants.h"
-#include "rt3d.h"
 
 
 // constructor generates the shader on the fly

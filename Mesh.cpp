@@ -24,8 +24,6 @@
 
 #include <vector>
 
-#include "rt3d.h"
-#include "rt3dObjLoader.h"
 #include "assetsPaths.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,

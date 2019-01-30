@@ -38,7 +38,6 @@
 #include "constants.h"
 #include "Mesh.h"
 #include "Model.h"
-#include "rt3dObjLoader.h"
 #include "Shader.h"
 
 
@@ -158,12 +157,6 @@ void Game::loadShaders() {
                              assetsPaths::texturedShader.fragment.c_str());
     this->skyboxShader = &skybox;
     this->textureShader = &textured;
-
-//    this->skyboxShader.initialize(assetsPaths::cubeMapShader.vertex,
-//                                  assetsPaths::cubeMapShader.fragment);
-//
-//    this->textureShader.initialize(assetsPaths::texturedShader.vertex,
-//                                   assetsPaths::texturedShader.fragment);
 }
 
 void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
@@ -221,6 +214,7 @@ void Game::draw() {
     // Skybox as single cube using cube map
 //    this->skyboxShader.use();
 //    this->skyboxShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
+
 
     glDepthMask(GL_FALSE); // Make sure writing to update depth test is off
     auto mvRotOnlyMat3 = glm::mat3(mvStack.top());

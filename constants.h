@@ -25,19 +25,16 @@
 
 #include <glm/glm.hpp>
 
-#include "rt3d.h"
-
-
 namespace Constants {
     namespace BaseWindowSize {
         const int width = 800;
         const int height = 600;
-    };
+    }
 
     const double degreeToRadian = 0.017453293;
     const glm::vec3 spawnPosition = {0.0f, 1.0f, 0.0f};//-2.0f, 1.0f, 8.0f};
     const glm::vec3 teleport1 = {8.0f, 1.0f, 8.0f};
     const glm::vec3 teleport2 = {-10.0f, 1.0f, -12.0f};
-};
+}
 
 #endif //AGP_GROUP_PROJECT_CONSTANTS_H
