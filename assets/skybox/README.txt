@@ -1,16 +1,3 @@
-You may use this textures for free in games, even commercial.
-
-See LICENSE.txt for details.
-
-Please also have a look on my other projects:
-
-Gamvas - a HTML5 game engine for the canvas element
-
-http://gamvas.com
-
-Brukkon - a puzzle game using the skybox textures
-
-http://93i.de/cms/products/games/brukkon
-
-Kind Regards,
-Heiko Irrgang <hi@93-interactive.com>
+version https://git-lfs.github.com/spec/v1
+oid sha256:14d41ffed0113c485b73122956ea5f05506f065da241e2b18c41dd1262c7ab0f
+size 357

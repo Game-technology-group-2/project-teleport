@@ -3,21 +3,22 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(project_teleport)
 set(srcs main.cpp
-        assetsLoader.cpp assetsLoader.h
         assetsPaths.h
         constants.h
         Mesh.cpp Mesh.h
+        Model.cpp Model.h
         Game.cpp Game.h
         Player.cpp Player.h
-        rt3d.cpp rt3d.h
-        rt3dObjLoader.cpp rt3dObjLoader.h
-        Shader.h Shader.cpp)
+        Shader.h Shader.cpp
+        stb_image.h)
+
 add_executable(project_teleport ${srcs})
 
 find_package(PkgConfig)
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(assimp REQUIRED)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
@@ -29,6 +30,7 @@ target_link_libraries(
         ${GLEW_LIBRARIES}
         ${SDL2_LIBRARIES}
         ${SDL2IMAGE_LIBRARIES}
+        ${ASSIMP_LIBRARIES}
 )
 
 target_include_directories(
@@ -39,4 +41,5 @@ target_include_directories(
         ${GLM_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
         ${SDL2IMAGE_INCLUDE_DIRS}
+        ${ASSIMP_INCLUDE_DIR}
 )

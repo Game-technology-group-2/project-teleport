@@ -1,10 +1,1 @@
-assets/skybox/LICENSE.txt filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayBack2048.png filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayLeft2048.png filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayUp2048.png filter=lfs diff=lfs merge=lfs -text
-assets/concrete.jpg filter=lfs diff=lfs merge=lfs -text
-assets/cube.obj filter=lfs diff=lfs merge=lfs -text
-assets/skybox/README.txt filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayDown2048.png filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayFront2048.png filter=lfs diff=lfs merge=lfs -text
-assets/skybox/TropicalSunnyDay/TropicalSunnyDayRight2048.png filter=lfs diff=lfs merge=lfs -text
+assets/** filter=lfs diff=lfs merge=lfs -text

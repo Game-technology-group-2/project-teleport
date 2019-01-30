@@ -10,7 +10,9 @@
 #include <SDL2/SDL.h>
 #endif
 
+#include "assetsPaths.h"
 #include "Mesh.h"
+#include "Model.h"
 #include "Player.h"
 #include "Shader.h"
 
@@ -26,10 +28,11 @@ private:
     SDL_GLContext mainContext; // OpenGL context handle
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
-    Shader skyboxShader;
-    Shader textureShader;
-    std::vector<Mesh> meshObjects;
-    std::vector<GLuint> textures;
+    Shader * skyboxShader = nullptr;
+    Shader * textureShader = nullptr;
+//    std::vector<Mesh> meshObjects;
+//    std::vector<GLuint> textures;
+    std::vector<Model> models;
     std::vector<GLuint> skybox = std::vector<GLuint>(6);
     Player player = Player(glm::vec3(-2.0f, 1.0f, 8.0f),
                            glm::vec3(0.0f, 1.0f, -1.0f),

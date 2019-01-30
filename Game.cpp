@@ -33,10 +33,11 @@
 #include <SDL2/SDL.h>
 #endif
 
-#include "assetsLoader.h"
+//#include "assetsLoader.h"
 #include "assetsPaths.h"
 #include "constants.h"
 #include "Mesh.h"
+#include "Model.h"
 #include "rt3dObjLoader.h"
 #include "Shader.h"
 
@@ -133,13 +134,14 @@ void Game::setupRenderingContext() {
 void Game::init() {
     this->loadShaders();
 
-    loadCubeMap(assetsPaths::skyboxTextures, this->skybox);
+//    loadCubeMap(assetsPaths::skyboxTextures, this->skybox);
+//
+//    textures = {loadTexture(assetsPaths::concreteTexture),
+//                loadTexture(assetsPaths::carpetTexture),};
 
-    textures = {loadTexture(assetsPaths::concreteTexture),
-                loadTexture(assetsPaths::carpetTexture),};
+//    meshObjects = {Mesh(assetsPaths::cubeObject),};
 
-    meshObjects = {Mesh(assetsPaths::cubeObject),};
-
+    this->models = {};
     this->player = Player(Constants::spawnPosition, // glm::vec3(-2.0f, 1.0f, 8.0f),
                           glm::vec3(0.0f, 1.0f, -1.0f),
                           glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
@@ -150,11 +152,18 @@ void Game::init() {
 }
 
 void Game::loadShaders() {
-    this->skyboxShader.initialize(assetsPaths::cubeMapShader.vertex,
-                                  assetsPaths::cubeMapShader.fragment);
+    Shader skybox = Shader(assetsPaths::cubeMapShader.vertex.c_str(),
+                           assetsPaths::cubeMapShader.fragment.c_str());
+    Shader textured = Shader(assetsPaths::texturedShader.vertex.c_str(),
+                             assetsPaths::texturedShader.fragment.c_str());
+    this->skyboxShader = &skybox;
+    this->textureShader = &textured;
 
-    this->textureShader.initialize(assetsPaths::texturedShader.vertex,
-                                   assetsPaths::texturedShader.fragment);
+//    this->skyboxShader.initialize(assetsPaths::cubeMapShader.vertex,
+//                                  assetsPaths::cubeMapShader.fragment);
+//
+//    this->textureShader.initialize(assetsPaths::texturedShader.vertex,
+//                                   assetsPaths::texturedShader.fragment);
 }
 
 void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
@@ -210,8 +219,8 @@ void Game::draw() {
     mvStack.push(player.getCameraDirection());
 
     // Skybox as single cube using cube map
-    this->skyboxShader.use();
-    this->skyboxShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
+//    this->skyboxShader.use();
+//    this->skyboxShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
 
     glDepthMask(GL_FALSE); // Make sure writing to update depth test is off
     auto mvRotOnlyMat3 = glm::mat3(mvStack.top());
@@ -220,9 +229,9 @@ void Game::draw() {
     glCullFace(GL_FRONT); // Drawing inside of cube!
     glBindTexture(GL_TEXTURE_CUBE_MAP, skybox[0]);
     mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.5f, 1.5f, 1.5f));
-    this->skyboxShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
-    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(),
-                          meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
+//    this->skyboxShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
+//    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(),
+//                          meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
     mvStack.pop();
     glCullFace(GL_BACK); // Drawing inside of cube!
 
@@ -230,18 +239,18 @@ void Game::draw() {
     // Back to remainder of rendering
     glDepthMask(GL_TRUE); // Make sure depth test is on
 
-    this->textureShader.use();
-    this->textureShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
+//    this->textureShader.use();
+//    this->textureShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
 
     // Draw a cube for ground plane
-    glBindTexture(GL_TEXTURE_2D, textures[1]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//    glBindTexture(GL_TEXTURE_2D, textures[1]);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     mvStack.push(mvStack.top());
     mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, -0.1f, -10.0f));
     mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 0.1f, 20.0f));
-    this->textureShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
-    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(), meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
+//    this->textureShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
+//    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(), meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
     mvStack.pop();
 
     // Remember to use at least one pop operation per push...

@@ -20,22 +20,45 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef PROJECT_TELEPORT_DRAWABLEOBJECT_H
-#define PROJECT_TELEPORT_DRAWABLEOBJECT_H
+#ifndef PROJECT_TELEPORT_MESH_H
+#define PROJECT_TELEPORT_MESH_H
 
 #include <GL/glew.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <string>
+#include <vector>
 
-class Mesh {
-private:
-    GLuint meshIndexCount;
-    GLuint meshObject;
+#include "Shader.h"
 
-public:
-    explicit Mesh(const std::string & objectPath);
-    GLuint getMeshIndexCount();
-    GLuint getMeshObject();
+struct Vertex {
+    glm::vec3 Position;
+    glm::vec3 Normal;
+    glm::vec2 TexCoords;
+    glm::vec3 Tangent;
+    glm::vec3 Bitangent;
 };
 
+struct Texture {
+    unsigned int id;
+    std::string type;
+    std::string path;
+};
 
-#endif // PROJECT_TELEPORT_DRAWABLEOBJECT_H
+class Mesh {
+    public:
+        /*  Mesh Data  */
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture> textures;
+        /*  Functions  */
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
+             std::vector<Texture> textures);
+        void draw(Shader shader);
+    private:
+        /*  Render data  */
+        unsigned int VAO, VBO, EBO;
+        /*  Functions    */
+        void setupMesh();
+};
+
+#endif // PROJECT_TELEPORT_MESH_H
