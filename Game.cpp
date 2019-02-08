@@ -110,7 +110,7 @@ void Game::setupRenderingContext() {
     // Turn on x4 multisampling anti-aliasing (MSAA)
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-    this->mainWindow = SDL_CreateWindow("SDL/GLM/OpenGL Demo",
+    this->mainWindow = SDL_CreateWindow("Project Teleport",
                                         SDL_WINDOWPOS_CENTERED,
                                         SDL_WINDOWPOS_CENTERED,
                                         this->mainWindowWidth,
@@ -140,10 +140,12 @@ void Game::init() {
 
 //    meshObjects = {Mesh(assetsPaths::cubeObject),};
 
-    this->models = {};
-    this->player = Player(Constants::spawnPosition, // glm::vec3(-2.0f, 1.0f, 8.0f),
-                          glm::vec3(0.0f, 1.0f, -1.0f),
-                          glm::vec3(0.0f, 1.0f, 0.0f), 0.0f);
+    this->models = {Model(assetsPaths::cubeModel),
+                    Model(assetsPaths::deskModel),
+                    Model(assetsPaths::nanosuitModel)};
+//    this->player = Player(Constants::spawnPosition, // glm::vec3(-2.0f, 1.0f, 8.0f),
+//                          glm::vec3(0.0f, 1.0f, 0.0f),
+//                          0.0f, 0.0f);
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -151,12 +153,17 @@ void Game::init() {
 }
 
 void Game::loadShaders() {
-    Shader skybox = Shader(assetsPaths::cubeMapShader.vertex.c_str(),
-                           assetsPaths::cubeMapShader.fragment.c_str());
-    Shader textured = Shader(assetsPaths::texturedShader.vertex.c_str(),
-                             assetsPaths::texturedShader.fragment.c_str());
-    this->skyboxShader = &skybox;
-    this->textureShader = &textured;
+//    Shader skybox = Shader(assetsPaths::cubeMapShader.vertex.c_str(),
+//                           assetsPaths::cubeMapShader.fragment.c_str());
+//    Shader textured = Shader(assetsPaths::texturedShader.vertex.c_str(),
+//                             assetsPaths::texturedShader.fragment.c_str());
+//    Shader colorInterpolation = Shader(assetsPaths::colorInterpolationShader.vertex.c_str(),
+//                                       assetsPaths::colorInterpolationShader.fragment.c_str());
+    Shader * modelLoading = new Shader(assetsPaths::modelLoadingShader.vertex.c_str(),
+                                     assetsPaths::modelLoadingShader.fragment.c_str());
+//    this->skyboxShader = &skybox;
+//    this->textureShader = &textured;
+    this->modelLoadingShader = modelLoading;
 }
 
 void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
@@ -171,15 +178,15 @@ void Game::handleUserInput() {
     // Todo : Handle KeyPresses events instead of checking if the key is
     //  pressed each loop, or find a better way to structure this function
     const Uint8 *keys = SDL_GetKeyboardState(nullptr);
-    if (keys[SDL_SCANCODE_W]) player.moveForward(0.1f);
-    if (keys[SDL_SCANCODE_S]) player.moveForward(-0.1f);
-    if (keys[SDL_SCANCODE_A]) player.moveRight(-0.1f);
-    if (keys[SDL_SCANCODE_D]) player.moveRight(0.1f);
-    if (keys[SDL_SCANCODE_R]) player.moveUp(0.1f);
-    if (keys[SDL_SCANCODE_F]) player.moveUp(-0.1f);
-
-    if (keys[SDL_SCANCODE_Q]) player.lookRight(-1.0f);
-    if (keys[SDL_SCANCODE_E]) player.lookRight(1.0f);
+//    if (keys[SDL_SCANCODE_W]) player.moveForward(0.1f);
+//    if (keys[SDL_SCANCODE_S]) player.moveForward(-0.1f);
+//    if (keys[SDL_SCANCODE_A]) player.moveRight(-0.1f);
+//    if (keys[SDL_SCANCODE_D]) player.moveRight(0.1f);
+//    if (keys[SDL_SCANCODE_R]) player.moveUp(0.1f);
+//    if (keys[SDL_SCANCODE_F]) player.moveUp(-0.1f);
+//
+//    if (keys[SDL_SCANCODE_Q]) player.lookRight(-1.0f);
+//    if (keys[SDL_SCANCODE_E]) player.lookRight(1.0f);
 
     if (keys[SDL_SCANCODE_1]) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -191,65 +198,39 @@ void Game::handleUserInput() {
         glEnable(GL_CULL_FACE);
     }
 
-    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
-
-    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
-
-    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
+//    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
+//
+//    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
+//
+//    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
 }
 
 void Game::draw() {
-    std::stack<glm::mat4> mvStack;
-    // clear the screen
-    glEnable(GL_CULL_FACE);
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glm::mat4 projection = glm::perspective(float(60.0f * Constants::degreeToRadian),
-                                  float(this->mainWindowWidth) / float(this->mainWindowHeight),
-                                  1.0f, 150.0f);
+//    glDisable(GL_CULL_FACE);
 
-    mvStack.push(player.getCameraDirection());
+    // don't forget to enable shader before setting uniforms
+    this->modelLoadingShader->use();
 
-    // Skybox as single cube using cube map
-//    this->skyboxShader.use();
-//    this->skyboxShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
+    // view/projection transformations
+    glm::mat4 projection = glm::perspective(glm::radians(this->camera.Zoom),
+                                            (float)this->mainWindowWidth / (float)this->mainWindowHeight,
+                                            0.1f, 100.0f);
+    glm::mat4 view = this->camera.GetViewMatrix();
+    this->modelLoadingShader->setMat4("projection", projection);
+    this->modelLoadingShader->setMat4("view", view);
 
+    // render the loaded model
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
+    model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
 
-    glDepthMask(GL_FALSE); // Make sure writing to update depth test is off
-    auto mvRotOnlyMat3 = glm::mat3(mvStack.top());
-    mvStack.push(glm::mat4(mvRotOnlyMat3));
+    this->modelLoadingShader->setMat4("model", model);
+    models[2].draw(*(this->modelLoadingShader));
 
-    glCullFace(GL_FRONT); // Drawing inside of cube!
-    glBindTexture(GL_TEXTURE_CUBE_MAP, skybox[0]);
-    mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.5f, 1.5f, 1.5f));
-//    this->skyboxShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
-//    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(),
-//                          meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
-    mvStack.pop();
-    glCullFace(GL_BACK); // Drawing inside of cube!
-
-
-    // Back to remainder of rendering
-    glDepthMask(GL_TRUE); // Make sure depth test is on
-
-//    this->textureShader.use();
-//    this->textureShader.setUniformMatrix4fv("projection", glm::value_ptr(projection));
-
-    // Draw a cube for ground plane
-//    glBindTexture(GL_TEXTURE_2D, textures[1]);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    mvStack.push(mvStack.top());
-    mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, -0.1f, -10.0f));
-    mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 0.1f, 20.0f));
-//    this->textureShader.setUniformMatrix4fv("modelview", glm::value_ptr(mvStack.top()));
-//    rt3d::drawIndexedMesh(meshObjects[0].getMeshObject(), meshObjects[0].getMeshIndexCount(), GL_TRIANGLES);
-    mvStack.pop();
-
-    // Remember to use at least one pop operation per push...
-    mvStack.pop(); // initial matrix
-    glDepthMask(GL_TRUE);
-
+    glUseProgram(0);
     SDL_GL_SwapWindow(this->mainWindow); // swap buffers
 }

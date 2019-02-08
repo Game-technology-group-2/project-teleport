@@ -32,9 +32,10 @@
 #include <iostream>
 
 class Shader {
-public:
-    unsigned int ID;
+private:
+    unsigned int id;
 
+public:
     // constructor generates the shader on the fly
     Shader(const char *vertexPath, const char *fragmentPath,
            const char *geometryPath = nullptr);
@@ -60,36 +61,13 @@ public:
     void setMat3(const std::string &name, const glm::mat3 &mat) const;
     void setMat4(const std::string &name, const glm::mat4 &mat) const;
 
+    void setUniformMatrix4fv(const char* uniformName, const GLfloat *data);
+
+    unsigned int getId();
+
 private:
     // utility function for checking shader compilation/linking errors.
     void checkCompileErrors(GLuint shader, std::string type);
 };
 
 #endif // PROJECT_TELEPORT_SHADER_H
-
-//#ifndef PROJECT_TELEPORT_SHADER_H
-//#define PROJECT_TELEPORT_SHADER_H
-//
-//#include <GL/glew.h>
-//#include <string>
-//
-//#include "rt3d.h"
-//
-//
-//class Shader {
-//public:
-//    Shader();
-//
-//    GLuint initialize(const std::string & vertexShaderPath,
-//                      const std::string & fragmentShaderPath);
-//    void use();
-//    void setUniformMatrix4fv(const char* uniformName, const GLfloat *data);
-//
-//    GLuint getId();
-//
-//private:
-//    GLuint id;
-//};
-//
-//
-//#endif // PROJECT_TELEPORT_SHADER_H

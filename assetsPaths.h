@@ -27,7 +27,9 @@
 #include <vector>
 
 namespace assetsPaths {
-    const std::string cubeObject = "../assets/cube.obj";
+    const std::string cubeModel = "../assets/cube.obj";
+    const std::string deskModel = "../assets/desk.3DS";
+    const std::string nanosuitModel = "../assets/nanosuit/nanosuit.obj";
 
     const std::string concreteTexture = "../assets/concrete.jpg";
     const std::string carpetTexture = "../assets/concrete.jpg";
@@ -51,6 +53,12 @@ namespace assetsPaths {
 
     const Shader texturedShader = {"../shaders/textured.vert",
                                   "../shaders/textured.frag"};
+
+    const Shader colorInterpolationShader = {"../shaders/colorInterpolation.vert",
+                                             "../shaders/colorInterpolation.frag"};
+
+    const Shader modelLoadingShader = {"../shaders/modelLoading.vert",
+                                             "../shaders/modelLoading.frag"};
 };
 
 #endif // PROJECT_TELEPORT_ASSETSPATHS_H

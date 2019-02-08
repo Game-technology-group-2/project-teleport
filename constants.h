@@ -31,6 +31,14 @@ namespace Constants {
         const int height = 600;
     }
 
+    namespace DefaultCameraValues {
+        const float yaw = -90.0f;
+        const float pitch = 0.0f;
+        const float speed = 2.5f;
+        const float sensitivity = 0.1f;
+        const float zoom = 45.0f;
+    }
+
     const double degreeToRadian = 0.017453293;
     const glm::vec3 spawnPosition = {0.0f, 1.0f, 0.0f};//-2.0f, 1.0f, 8.0f};
     const glm::vec3 teleport1 = {8.0f, 1.0f, 8.0f};
