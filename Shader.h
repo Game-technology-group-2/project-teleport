@@ -40,7 +40,6 @@ public:
     Shader(const char *vertexPath, const char *fragmentPath,
            const char *geometryPath = nullptr);
 
-    // Activate the shader
     void use();
 
     // Utility uniform functions

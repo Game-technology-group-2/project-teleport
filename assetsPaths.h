@@ -27,20 +27,29 @@
 #include <vector>
 
 namespace assetsPaths {
-    const std::string cubeModel = "../assets/cube.obj";
-    const std::string deskModel = "../assets/desk.3DS";
-    const std::string nanosuitModel = "../assets/nanosuit/nanosuit.obj";
+#ifdef _WIN32
+	const std::string rootPath = "./";
+#endif
+#ifndef _WIN32
+	const std::string rootPath = "../";
+#endif
 
-    const std::string concreteTexture = "../assets/concrete.jpg";
-    const std::string carpetTexture = "../assets/concrete.jpg";
+    const std::string cubeModel = rootPath + "assets/cube.obj";
+    const std::string deskModel = rootPath + "assets/desk.3DS";
+    const std::string nanosuitModel = rootPath + "assets/nanosuit/nanosuit.obj";
+
+    const std::string cubeObject = rootPath + "assets/cube.obj";
+
+    const std::string concreteTexture = rootPath + "assets/concrete.jpg";
+    const std::string carpetTexture = rootPath + "assets/concrete.jpg";
 
     const std::vector<std::string> skyboxTextures = {
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayBack2048.png",
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayFront2048.png",
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayRight2048.png",
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayLeft2048.png",
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayUp2048.png",
-            "../assets/skybox/TropicalSunnyDay/TropicalSunnyDayDown2048.png"
+			rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayBack2048.png",
+			rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayFront2048.png",
+		    rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayRight2048.png",
+			rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayLeft2048.png",
+			rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayUp2048.png",
+			rootPath + "assets/skybox/TropicalSunnyDay/TropicalSunnyDayDown2048.png"
     };
 
     struct Shader {
@@ -48,8 +57,8 @@ namespace assetsPaths {
         const std::string fragment;
     };
 
-    const Shader cubeMapShader = {"../shaders/cubeMap.vert",
-                                  "../shaders/cubeMap.frag"};
+	const Shader cubeMapShader = {rootPath + "shaders/cubeMap.vert",
+								  rootPath + "shaders/cubeMap.frag"};
 
     const Shader texturedShader = {"../shaders/textured.vert",
                                   "../shaders/textured.frag"};
@@ -59,6 +68,7 @@ namespace assetsPaths {
 
     const Shader modelLoadingShader = {"../shaders/modelLoading.vert",
                                              "../shaders/modelLoading.frag"};
+
 };
 
 #endif // PROJECT_TELEPORT_ASSETSPATHS_H
