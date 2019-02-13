@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 set(CMAKE_CXX_STANDARD 17)
 
 project(project_teleport)
+
 set(srcs main.cpp
         assetsPaths.h
         constants.h
@@ -14,32 +15,43 @@ set(srcs main.cpp
 
 add_executable(project_teleport ${srcs})
 
-find_package(PkgConfig)
+#find_package(PkgConfig)
 set(OpenGL_GL_PREFERENCE GLVND)
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-find_package(assimp REQUIRED)
 
-PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-#PKG_SEARCH_MODULE(GLM REQUIRED glm)
+find_package(assimp REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+#find_package(SDL2IMAGE REQUIRED)
+#target_link_libraries(main PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
 target_link_libraries(
         project_teleport
+		${ASSIMP_LIBRARIES}
+		${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${SDL2_LIBRARIES}
-        ${SDL2IMAGE_LIBRARIES}
-        ${ASSIMP_LIBRARIES}
+		SDL2::SDL2 SDL2::SDL2main
+#        ${SDL2_LIBRARIES}
+#        ${SDL2IMAGE_LIBRARIES}
 )
+
+#target_link_libraries(project_teleport PRIVATE glm)
+#target_link_libraries(project_teleport PRIVATE GLEW::GLEW)
+
+#PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+#PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+#PKG_SEARCH_MODULE(GLM REQUIRED glm)
+
+
 
 target_include_directories(
         project_teleport PRIVATE
-        libs/glm
+#        libs/glm
         ${OPENGL_INCLUDE_DIR}
         ${GLEW_INCLUDE_DIRS}
-        ${GLM_INCLUDE_DIRS}
+#        ${GLM_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
-        ${SDL2IMAGE_INCLUDE_DIRS}
-        ${ASSIMP_INCLUDE_DIR}
+#        ${SDL2IMAGE_INCLUDE_DIRS}
+#        ${ASSIMP_INCLUDE_DIR}
 )

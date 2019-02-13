@@ -25,15 +25,9 @@
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
-#include <stack>
-#ifdef _WIN32
-#include <SDL.h>
-#endif
-#ifndef _WIN32
 #include <SDL2/SDL.h>
-#endif
+#include <stack>
 
-//#include "assetsLoader.h"
 #include "assetsPaths.h"
 #include "constants.h"
 #include "Mesh.h"

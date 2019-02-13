@@ -25,16 +25,11 @@
 
 
 #include <GL/glew.h>
-#include <string>
-#ifdef _WIN32
-#include <SDL.h>
-#endif
-#ifndef _WIN32
 #include <SDL2/SDL.h>
-#endif
+#include <string>
 
 #include "Model.h"
-//#include "assetsLoader.h"
+
 #include "Mesh.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -59,8 +54,9 @@ void Model::loadModel(std::string const & path) {
     // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         // if it's not Zero
+		std::string error = importer.GetErrorString();
         throw std::runtime_error("Assimp error : "
-                                 + std::string(importer.GetErrorString()));
+                                 + error);
     }
     // retrieve the directory path of the filepath
     this->directory = path.substr(0, path.find_last_of('/'));
