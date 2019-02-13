@@ -16,30 +16,29 @@ add_executable(project_teleport ${srcs})
 
 find_package(PkgConfig)
 set(OpenGL_GL_PREFERENCE GLVND)
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
 find_package(assimp REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glm REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(SDL2 REQUIRED)
 
-PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-#PKG_SEARCH_MODULE(GLM REQUIRED glm)
 
 target_link_libraries(
         project_teleport
-        ${OPENGL_LIBRARIES}
+        ${ASSIMP_LIBRARIES}
         ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES}
         ${SDL2_LIBRARIES}
         ${SDL2IMAGE_LIBRARIES}
-        ${ASSIMP_LIBRARIES}
 )
 
 target_include_directories(
         project_teleport PRIVATE
-        libs/glm
-        ${OPENGL_INCLUDE_DIR}
+        ${ASSIMP_INCLUDE_DIR}
         ${GLEW_INCLUDE_DIRS}
         ${GLM_INCLUDE_DIRS}
+        ${OPENGL_INCLUDE_DIR}
         ${SDL2_INCLUDE_DIRS}
         ${SDL2IMAGE_INCLUDE_DIRS}
-        ${ASSIMP_INCLUDE_DIR}
 )
