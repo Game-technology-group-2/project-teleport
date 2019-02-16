@@ -6,7 +6,7 @@ project(project_teleport LANGUAGES CXX)
 set(srcs main.cpp
         assetsPaths.h
         Camera.cpp Camera.h
-        constants.h
+        Constants.h
         Game.cpp Game.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h

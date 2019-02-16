@@ -24,7 +24,7 @@
 
 #include <string>
 
-#include "constants.h"
+#include "Constants.h"
 
 
 // constructor generates the shader on the fly

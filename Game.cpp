@@ -29,7 +29,7 @@
 #include <stack>
 
 #include "assetsPaths.h"
-#include "constants.h"
+#include "Constants.h"
 #include "Mesh.h"
 #include "Model.h"
 #include "Shader.h"

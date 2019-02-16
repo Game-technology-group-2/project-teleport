@@ -25,7 +25,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
-#include "constants.h"
+#include "Constants.h"
 
 //Player::Player(glm::vec3 eye, glm::vec3 at, glm::vec3 up, GLfloat r)
 //        : eye(eye), at(at), up(up), rotation(r) {
