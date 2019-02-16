@@ -5,13 +5,14 @@ project(project_teleport LANGUAGES CXX)
 
 set(srcs main.cpp
         assetsPaths.h
+        Camera.cpp Camera.h
         constants.h
+        Game.cpp Game.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h
-        Game.cpp Game.h
         Player.cpp Player.h
         Shader.h Shader.cpp
-        stb_image.h Camera.cpp Camera.h)
+        stb_image.h)
 
 add_executable(project_teleport ${srcs})
 
