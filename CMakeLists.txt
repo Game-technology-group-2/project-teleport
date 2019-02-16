@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 set(CMAKE_CXX_STANDARD 17)
 
-project(project_teleport)
+project(project_teleport LANGUAGES CXX)
+
 set(srcs main.cpp
         assetsPaths.h
         constants.h
@@ -14,31 +15,45 @@ set(srcs main.cpp
 
 add_executable(project_teleport ${srcs})
 
-find_package(PkgConfig)
-set(OpenGL_GL_PREFERENCE GLVND)
+#find_package(PkgConfig)
+#set(OpenGL_GL_PREFERENCE GLVND)
+
 find_package(assimp REQUIRED)
+target_link_libraries(project_teleport PRIVATE ${ASSIMP_LIBRARIES})
+target_include_directories(project_teleport PRIVATE ${ASSIMP_INCLUDE_DIR})
+
 find_package(GLEW REQUIRED)
-find_package(glm REQUIRED)
+target_link_libraries(project_teleport PRIVATE GLEW::GLEW)
+
+find_package(glm CONFIG REQUIRED)
+
 find_package(OpenGL REQUIRED)
-find_package(SDL2 REQUIRED)
+target_link_libraries(project_teleport PRIVATE OpenGL::GL)
 
-PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+find_package(SDL2 CONFIG REQUIRED)
+target_link_libraries(project_teleport PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
-target_link_libraries(
-        project_teleport
-        ${ASSIMP_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES}
-        ${SDL2_LIBRARIES}
-        ${SDL2IMAGE_LIBRARIES}
+#find_package(SDL2_image REQUIRED)
+#target_link_libraries(project_teleport ${SDL2IMAGE_LIBRARIES})
+
+#PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+#PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+#PKG_SEARCH_MODULE(GLM REQUIRED glm)
+
+#target_include_directories(project_teleport PRIVATE ${SDL2IMAGE_INCLUDE_DIRS})
+
+add_custom_command(
+        TARGET project_teleport
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        ${CMAKE_CURRENT_BINARY_DIR}/assets
 )
 
-target_include_directories(
-        project_teleport PRIVATE
-        ${ASSIMP_INCLUDE_DIR}
-        ${GLEW_INCLUDE_DIRS}
-        ${GLM_INCLUDE_DIRS}
-        ${OPENGL_INCLUDE_DIR}
-        ${SDL2_INCLUDE_DIRS}
-        ${SDL2IMAGE_INCLUDE_DIRS}
+add_custom_command(
+        TARGET project_teleport
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/shaders
+        ${CMAKE_CURRENT_BINARY_DIR}/shaders
 )
