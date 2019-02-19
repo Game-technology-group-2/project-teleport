@@ -2,6 +2,7 @@
 #define PROJECT_TELEPORT_GAME_H
 
 #include <GL/glew.h>
+#include <memory>
 #include <SDL2/SDL.h>
 #include <vector>
 
@@ -24,10 +25,10 @@ private:
     SDL_GLContext mainContext; // OpenGL context handle
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
-//    Shader * skyboxShader = nullptr;
-//    Shader * textureShader = nullptr;
-//    Shader * colorInterpolationShader = nullptr;
-    Shader * modelLoadingShader = nullptr;
+//    std::shared_ptr<Shader> skyboxShader;
+//    std::shared_ptr<Shader> textureShader;
+//    std::shared_ptr<Shader> colorInterpolationShader;
+    std::shared_ptr<Shader> modelLoadingShader;
 //    std::vector<Mesh> meshObjects;
 //    std::vector<GLuint> textures;
     std::vector<Model> models;

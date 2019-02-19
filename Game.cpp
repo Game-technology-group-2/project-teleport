@@ -25,6 +25,7 @@
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <memory>
 #include <SDL2/SDL.h>
 #include <stack>
 
@@ -153,11 +154,8 @@ void Game::loadShaders() {
 //                             assetsPaths::texturedShader.fragment.c_str());
 //    Shader colorInterpolation = Shader(assetsPaths::colorInterpolationShader.vertex.c_str(),
 //                                       assetsPaths::colorInterpolationShader.fragment.c_str());
-    Shader * modelLoading = new Shader(assetsPaths::modelLoadingShader.vertex.c_str(),
-                                     assetsPaths::modelLoadingShader.fragment.c_str());
-//    this->skyboxShader = &skybox;
-//    this->textureShader = &textured;
-    this->modelLoadingShader = modelLoading;
+    this->modelLoadingShader = std::make_shared<Shader>(assetsPaths::modelLoadingShader.vertex.c_str(),
+                                                        assetsPaths::modelLoadingShader.fragment.c_str());
 }
 
 void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
