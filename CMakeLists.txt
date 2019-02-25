@@ -27,6 +27,9 @@ find_package(GLEW REQUIRED)
 target_link_libraries(project_teleport PRIVATE GLEW::GLEW)
 
 find_package(glm CONFIG REQUIRED)
+if (NOT GLM_FOUND) # Done mostly for Ubuntu/Debian environments which do not have the right CMake module
+    target_include_directories(project_teleport PRIVATE "${CMAKE_SOURCE_DIR}/libs/glm")
+endif (NOT GLM_FOUND)
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(project_teleport PRIVATE OpenGL::GL)

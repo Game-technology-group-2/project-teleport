@@ -15,7 +15,7 @@ addons:
       - libassimp-dev
       - libsdl2-dev
       - libsdl2-image-dev
-      - libglm-dev
+#      - libglm-dev    # Wrong CMake target mitigated by CMake config. Package no longer used.
       - libglew-dev
 
 before_script:
