@@ -26,6 +26,7 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Constants.h"
+#include "Helpers.h"
 
 //Player::Player(glm::vec3 eye, glm::vec3 at, glm::vec3 up, GLfloat r)
 //        : eye(eye), at(at), up(up), rotation(r) {
@@ -40,13 +41,13 @@ Player::Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 void Player::moveForward(GLfloat distance) {
 //    eye = glm::vec3(eye.x + distance * std::sin(rotation * Constants::degreeToRadian),
 //                    eye.y, eye.z - distance * std::cos(rotation * Constants::degreeToRadian));
-    this->camera.move(Camera_Movement::FORWARD, 0.1f);
+    this->camera.move(Helpers::Movement::FORWARD, 0.1f);
 }
 
 void Player::moveRight(GLfloat distance) {
 //    eye = glm::vec3(eye.x + distance * std::cos(rotation * Constants::degreeToRadian),
 //                    eye.y, eye.z + distance * std::sin(rotation * Constants::degreeToRadian));
-    this->camera.move(Camera_Movement::RIGHT, 0.1f);
+    this->camera.move(Helpers::Movement::RIGHT, 0.1f);
 }
 
 void Player::moveUp(GLfloat distance) {

@@ -8,6 +8,7 @@ set(srcs main.cpp
         Camera.cpp Camera.h
         Constants.h
         Game.cpp Game.h
+        Helpers.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h
         Player.cpp Player.h

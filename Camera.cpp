@@ -54,16 +54,30 @@ glm::mat4 Camera::GetViewMatrix() {
     return glm::lookAt(Position, Position + Front, Up);
 }
 
-void Camera::move(Camera_Movement direction, float deltaTime) {
+void Camera::move(Helpers::Movement direction, float deltaTime) {
+    using namespace Helpers;
     float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD)
-        Position += Front * velocity;
-    if (direction == BACKWARD)
-        Position -= Front * velocity;
-    if (direction == LEFT)
-        Position -= Right * velocity;
-    if (direction == RIGHT)
-        Position += Right * velocity;
+
+    switch (direction) {
+        case Movement::FORWARD:
+            Position += Front * velocity;
+            break;
+
+        case Movement::BACKWARD:
+            Position -= Front * velocity;
+            break;
+
+        case Movement::LEFT:
+            Position -= Right * velocity;
+            break;
+
+        case Movement::RIGHT:
+            Position += Right * velocity;
+            break;
+
+        default:
+            break;
+    }
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset,
