@@ -6,6 +6,9 @@
  * Copyright (C) 2018 Pierre Gillet
  * Copyright (C) 2018 Jamie McKechnie
  *
+ * Copyright (C) 2018 Joey de Vries (https://twitter.com/JoeyDeVriez)
+ * https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/mesh.h
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
