@@ -16,9 +16,6 @@ set(srcs main.cpp
 
 add_executable(project_teleport ${srcs})
 
-#find_package(PkgConfig)
-#set(OpenGL_GL_PREFERENCE GLVND)
-
 find_package(assimp REQUIRED)
 target_link_libraries(project_teleport PRIVATE ${ASSIMP_LIBRARIES})
 target_include_directories(project_teleport PRIVATE ${ASSIMP_INCLUDE_DIR})
@@ -34,18 +31,21 @@ endif (NOT GLM_FOUND)
 find_package(OpenGL REQUIRED)
 target_link_libraries(project_teleport PRIVATE OpenGL::GL)
 
-find_package(SDL2 CONFIG REQUIRED)
-target_link_libraries(project_teleport PRIVATE SDL2::SDL2 SDL2::SDL2main)
+## The modern way is not yet supported by some distros apparently (Ubuntu, Debian, Travis..).
+## Gotta love working with 3 years old package versions...
+#### MODERN WAY (can't use it for now)
+#find_package(SDL2 CONFIG REQUIRED)
+#target_link_libraries(project_teleport PRIVATE SDL2::SDL2 SDL2::SDL2main)
+#### "OLD" WAY (needed for "stable" distros)
+find_package(PkgConfig)
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+target_include_directories(project_teleport PRIVATE ${SDL2_INCLUDE_DIRS})
+target_link_libraries(project_teleport PRIVATE ${SDL2_LIBRARIES})
 
-#find_package(SDL2_image REQUIRED)
-#target_link_libraries(project_teleport ${SDL2IMAGE_LIBRARIES})
 
-#PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-#PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-#PKG_SEARCH_MODULE(GLM REQUIRED glm)
-
-#target_include_directories(project_teleport PRIVATE ${SDL2IMAGE_INCLUDE_DIRS})
-
+## Copying resource files (assets, shaders) to the CMake build directory.
+## This is ugly and should hopefully disappear or be changed when/if supporting
+##   package/tarball creation or install option.
 add_custom_command(
         TARGET project_teleport
         POST_BUILD
