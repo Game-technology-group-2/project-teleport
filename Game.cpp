@@ -198,7 +198,7 @@ void Game::handleUserInput() {
     int x {0};
     int y {0};
     SDL_GetRelativeMouseState(&x, &y);
-    this->camera.ProcessMouseMovement(x, y, true);
+    this->camera.processMouseMovement(x, y, true);
 }
 
 void Game::draw() {
@@ -215,7 +215,7 @@ void Game::draw() {
     glm::mat4 projection = glm::perspective(glm::radians(this->camera.Zoom),
                                             (float)this->mainWindowWidth / (float)this->mainWindowHeight,
                                             0.1f, 100.0f);
-    glm::mat4 view = this->camera.GetViewMatrix();
+    glm::mat4 view = this->camera.getViewMatrix();
     this->modelLoadingShader->setMat4("projection", projection);
     this->modelLoadingShader->setMat4("view", view);
 
