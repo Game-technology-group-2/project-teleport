@@ -84,7 +84,7 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset,
     yoffset *= MouseSensitivity;
 
     Yaw   += xoffset;
-    Pitch += yoffset;
+    Pitch -= yoffset;
 
     // Make sure that when pitch is out of bounds, screen doesn't get flipped
     if (constrainPitch) {
