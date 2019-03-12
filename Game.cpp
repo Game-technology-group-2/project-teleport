@@ -117,6 +117,12 @@ void Game::setupRenderingContext() {
                                  + std::string(SDL_GetError()));
     }
 
+    auto relativeMouseMode = SDL_SetRelativeMouseMode(SDL_TRUE);
+    if (relativeMouseMode) {
+        throw std::runtime_error("Unable to capture the mouse : "
+                                 + std::string(SDL_GetError()));
+    }
+
     // Create openGL context and attach to window
     this->mainContext = SDL_GL_CreateContext(this->mainWindow);
     // set swap buffers to sync with monitor's vertical refresh rate
@@ -168,15 +174,10 @@ void Game::handleUserInput() {
     // Todo : Handle KeyPresses events instead of checking if the key is
     //  pressed each loop, or find a better way to structure this function
     const Uint8 *keys = SDL_GetKeyboardState(nullptr);
-//    if (keys[SDL_SCANCODE_W]) player.moveForward(0.1f);
-//    if (keys[SDL_SCANCODE_S]) player.moveForward(-0.1f);
-//    if (keys[SDL_SCANCODE_A]) player.moveRight(-0.1f);
-//    if (keys[SDL_SCANCODE_D]) player.moveRight(0.1f);
-//    if (keys[SDL_SCANCODE_R]) player.moveUp(0.1f);
-//    if (keys[SDL_SCANCODE_F]) player.moveUp(-0.1f);
-//
-//    if (keys[SDL_SCANCODE_Q]) player.lookRight(-1.0f);
-//    if (keys[SDL_SCANCODE_E]) player.lookRight(1.0f);
+    if (keys[SDL_SCANCODE_W]) camera.move(Helpers::Movement::FORWARD, 0.1f);
+    if (keys[SDL_SCANCODE_S]) camera.move(Helpers::Movement::BACKWARD, 0.1f);
+    if (keys[SDL_SCANCODE_A]) camera.move(Helpers::Movement::LEFT, 0.1f);
+    if (keys[SDL_SCANCODE_D]) camera.move(Helpers::Movement::RIGHT, 0.1f);
 
     if (keys[SDL_SCANCODE_1]) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -193,6 +194,11 @@ void Game::handleUserInput() {
 //    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
 //
 //    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
+
+    int x {0};
+    int y {0};
+    SDL_GetRelativeMouseState(&x, &y);
+    this->camera.ProcessMouseMovement(x, y, true);
 }
 
 void Game::draw() {
