@@ -2,9 +2,7 @@
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
  *
- * Copyright (C) 2018 Jakub Gembacz
  * Copyright (C) 2018 Pierre Gillet
- * Copyright (C) 2018 Jamie McKechnie
  *
  * Copyright (C) 2018 Joey de Vries (https://twitter.com/JoeyDeVriez)
  * https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/mesh.h

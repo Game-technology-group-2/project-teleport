@@ -1,3 +1,4 @@
+#if ($HEADER_COMMENTS)
 /**
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
@@ -17,30 +18,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#end
 
-#ifndef AGP_GROUP_PROJECT_CONSTANTS_H
-#define AGP_GROUP_PROJECT_CONSTANTS_H
-
-#include <glm/glm.hpp>
-
-namespace Constants {
-    namespace BaseWindowSize {
-        const int width = 800;
-        const int height = 600;
-    }
-
-    namespace DefaultCameraValues {
-        const float yaw = -90.0f;
-        const float pitch = 0.0f;
-        const float speed = 2.5f;
-        const float sensitivity = 0.1f;
-        const float zoom = 45.0f;
-    }
-
-    const double degreeToRadian = 0.017453293;
-    const glm::vec3 spawnPosition = {0.0f, 1.0f, 0.0f};//-2.0f, 1.0f, 8.0f};
-    const glm::vec3 teleport1 = {8.0f, 1.0f, 8.0f};
-    const glm::vec3 teleport2 = {-10.0f, 1.0f, -12.0f};
-}
-
-#endif //AGP_GROUP_PROJECT_CONSTANTS_H
