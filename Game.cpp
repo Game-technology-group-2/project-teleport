@@ -50,10 +50,17 @@ Game::~Game() {
 }
 
 void Game::runEventLoop() {
-    SDL_Event sdlEvent;
-    bool running = true;
+    bool running {true};
+
+    Uint64 currentTime {SDL_GetPerformanceCounter()};
+    Uint64 lastMeasuredTime {0};
+    double deltaTime {0};
 
     while (running) {
+        lastMeasuredTime = currentTime;
+        currentTime = SDL_GetPerformanceCounter();
+        deltaTime = (double)((currentTime - lastMeasuredTime) * 1000 / (double)SDL_GetPerformanceFrequency());
+        SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
                 case SDL_QUIT:
@@ -125,8 +132,12 @@ void Game::setupRenderingContext() {
 
     // Create openGL context and attach to window
     this->mainContext = SDL_GL_CreateContext(this->mainWindow);
-    // set swap buffers to sync with monitor's vertical refresh rate
-    SDL_GL_SetSwapInterval(1);
+
+    int swapIntervalReturn = SDL_GL_SetSwapInterval(0);
+    if (swapIntervalReturn) {
+        throw std::runtime_error("Could not set swap interval : "
+                                 + std::string(SDL_GetError()));
+    }
 }
 
 void Game::init() {
