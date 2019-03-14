@@ -37,6 +37,7 @@ namespace Constants {
         const float zoom = 45.0f;
     }
 
+    const int MS_PER_FRAME {13}; // To aim for around 75 fps
     const double degreeToRadian = 0.017453293;
     const glm::vec3 spawnPosition = {0.0f, 1.0f, 0.0f};//-2.0f, 1.0f, 8.0f};
     const glm::vec3 teleport1 = {8.0f, 1.0f, 8.0f};

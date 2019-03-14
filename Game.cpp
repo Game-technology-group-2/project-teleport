@@ -52,14 +52,8 @@ Game::~Game() {
 void Game::runEventLoop() {
     bool running {true};
 
-    Uint64 currentTime {SDL_GetPerformanceCounter()};
-    Uint64 lastMeasuredTime {0};
-    double deltaTime {0};
-
     while (running) {
-        lastMeasuredTime = currentTime;
-        currentTime = SDL_GetPerformanceCounter();
-        deltaTime = (double)((currentTime - lastMeasuredTime) * 1000 / (double)SDL_GetPerformanceFrequency());
+        auto startTime {SDL_GetTicks()};
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
@@ -77,6 +71,13 @@ void Game::runEventLoop() {
         }
         this->handleUserInput();
         this->draw(); // call the draw function
+
+        auto currentTime {SDL_GetTicks()};
+        auto maximumTime {startTime + Constants::MS_PER_FRAME};
+        // Only wait if going faster than the expected update rate
+        if (currentTime < maximumTime) {
+            SDL_Delay(maximumTime - currentTime);
+        }
     }
 }
 
