@@ -86,10 +86,10 @@ void Game::initializeGlew() {
     // Required on Windows *only* init GLEW to access OpenGL beyond 1.1
     glewExperimental = GL_TRUE;
 #endif
-    GLenum err = glewInit();
+    GLenum err {glewInit()};
     if (GLEW_OK != err) {
-        std::cout << "glewInit failed, aborting." << std::endl;
-        exit(1);
+        throw std::runtime_error("glewInit failed : "
+                                 + std::string(reinterpret_cast<const char*>(glewGetErrorString(err))));
     }
 }
 
@@ -234,7 +234,7 @@ void Game::draw() {
     model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
 
     this->modelLoadingShader->setMat4("model", model);
-    models[2].draw(*(this->modelLoadingShader));
+    models[1].draw(*(this->modelLoadingShader));
 
     glUseProgram(0);
     SDL_GL_SwapWindow(this->mainWindow); // swap buffers
