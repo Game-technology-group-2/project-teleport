@@ -23,12 +23,15 @@
 
 namespace Helpers {
     enum class Movement {
+        NONE,
         FORWARD,
         BACKWARD,
         LEFT,
         RIGHT,
-        UP,
-        DOWN
+        FORWARD_LEFT,
+        FORWARD_RIGHT,
+        BACKWARD_LEFT,
+        BACKWARD_RIGHT,
     };
 
     enum class Rotation {

@@ -22,6 +22,7 @@
 #define PROJECT_TELEPORT_GRAPHICSCOMPONENT_H
 
 #include "GameObject.h"
+#include "Graphics.h"
 
 
 class GameObject;
@@ -29,7 +30,7 @@ class GameObject;
 class GraphicsComponent {
 public:
     virtual ~GraphicsComponent() = default;
-    virtual void update(GameObject & gameObject) = 0;
+    virtual void update(GameObject & gameObject, Graphics & graphics) = 0;
 };
 
 

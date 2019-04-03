@@ -47,3 +47,7 @@ float Player::getZoom() const {
 glm::mat4 Player::getViewMatrix() {
     return camera.getViewMatrix();
 }
+
+void Player::setMovementDirection(Helpers::Movement direction) {
+    movementDirection = direction;
+}

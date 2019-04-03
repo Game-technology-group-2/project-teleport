@@ -31,6 +31,7 @@
 class Player {
 private:
     Camera camera;
+    Helpers::Movement movementDirection;
 
 public:
     Player(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
@@ -38,7 +39,9 @@ public:
            float yaw = Constants::DefaultCameraValues::yaw,
            float pitch = Constants::DefaultCameraValues::pitch);
 
-    void move(Helpers::Movement direction, float deltaTime);
+    void setMovementDirection(Helpers::Movement direction);
+
+//    void move(Helpers::Movement direction, float deltaTime);
     void processMouseMovement(float xOffset, float yoffset,
                               GLboolean constrainPitch = true);
     float getZoom() const;

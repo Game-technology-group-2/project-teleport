@@ -21,9 +21,14 @@
 #ifndef PROJECT_TELEPORT_INPUTCOMPONENT_H
 #define PROJECT_TELEPORT_INPUTCOMPONENT_H
 
+#include "GameObject.h"
+
+class GameObject;
 
 class InputComponent {
-
+public:
+    virtual ~InputComponent() = default;
+    virtual void update(GameObject & gameObject) = 0;
 };
 
 

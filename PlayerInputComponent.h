@@ -18,6 +18,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#ifndef PROJECT_TELEPORT_PLAYERINPUTCOMPONENT_H
+#define PROJECT_TELEPORT_PLAYERINPUTCOMPONENT_H
+
+
 #include "InputComponent.h"
 
 
+class PlayerInputComponent : public InputComponent {
+public:
+    void update(GameObject & gameObject) override;
+};
+
+
+#endif //PROJECT_TELEPORT_PLAYERINPUTCOMPONENT_H

@@ -69,7 +69,8 @@ void Game::runEventLoop() {
                     break;
             }
         }
-        this->handleUserInput();
+        this->player.update(graphics);
+//        this->handleUserInput();
         this->draw(); // call the draw function
 
         auto currentTime {SDL_GetTicks()};
@@ -179,36 +180,36 @@ void Game::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
     }
 }
 
-void Game::handleUserInput() {
-    // Todo : Handle KeyPresses events instead of checking if the key is
-    //  pressed each loop, or find a better way to structure this function
-    const Uint8 *keys = SDL_GetKeyboardState(nullptr);
-    if (keys[SDL_SCANCODE_W]) player.move(Helpers::Movement::FORWARD, 0.1f);
-    if (keys[SDL_SCANCODE_S]) player.move(Helpers::Movement::BACKWARD, 0.1f);
-    if (keys[SDL_SCANCODE_A]) player.move(Helpers::Movement::LEFT, 0.1f);
-    if (keys[SDL_SCANCODE_D]) player.move(Helpers::Movement::RIGHT, 0.1f);
-
-    if (keys[SDL_SCANCODE_1]) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glDisable(GL_CULL_FACE);
-    }
-
-    if (keys[SDL_SCANCODE_2]) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glEnable(GL_CULL_FACE);
-    }
-
-//    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
+//void Game::handleUserInput() {
+//    // Todo : Handle KeyPresses events instead of checking if the key is
+//    //  pressed each loop, or find a better way to structure this function
+//    const Uint8 *keys = SDL_GetKeyboardState(nullptr);
+//    if (keys[SDL_SCANCODE_W]) player.move(Helpers::Movement::FORWARD, 0.1f);
+//    if (keys[SDL_SCANCODE_S]) player.move(Helpers::Movement::BACKWARD, 0.1f);
+//    if (keys[SDL_SCANCODE_A]) player.move(Helpers::Movement::LEFT, 0.1f);
+//    if (keys[SDL_SCANCODE_D]) player.move(Helpers::Movement::RIGHT, 0.1f);
 //
-//    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
+//    if (keys[SDL_SCANCODE_1]) {
+//        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//        glDisable(GL_CULL_FACE);
+//    }
 //
-//    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
-
-    int x {0};
-    int y {0};
-    SDL_GetRelativeMouseState(&x, &y);
-    this->player.processMouseMovement(x, y, true);
-}
+//    if (keys[SDL_SCANCODE_2]) {
+//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+//        glEnable(GL_CULL_FACE);
+//    }
+//
+////    if (keys[SDL_SCANCODE_3]) this->player.teleport(Constants::spawnPosition);
+////
+////    if (keys[SDL_SCANCODE_4]) this->player.teleport(Constants::teleport1);
+////
+////    if (keys[SDL_SCANCODE_5]) this->player.teleport(Constants::teleport2);
+//
+//    int x {0};
+//    int y {0};
+//    SDL_GetRelativeMouseState(&x, &y);
+//    this->player.processMouseMovement(x, y, true);
+//}
 
 void Game::draw() {
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
@@ -221,10 +222,10 @@ void Game::draw() {
     this->modelLoadingShader->use();
 
     // view/projection transformations
-    glm::mat4 projection = glm::perspective(glm::radians(this->player.getZoom()),
+    glm::mat4 projection = glm::perspective(glm::radians(this->camera.getZoom()),
                                             (float)this->mainWindowWidth / (float)this->mainWindowHeight,
                                             0.1f, 100.0f);
-    glm::mat4 view = this->player.getViewMatrix();
+    glm::mat4 view = this->camera.getViewMatrix();
     this->modelLoadingShader->setMat4("projection", projection);
     this->modelLoadingShader->setMat4("view", view);
 

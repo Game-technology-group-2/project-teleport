@@ -26,23 +26,28 @@
 
 #include "InputComponent.h"
 #include "GraphicsComponent.h"
+#include "Helpers.h"
 
 
 class InputComponent;
 class GraphicsComponent;
 
 class GameObject {
+public:
+    GameObject(std::shared_ptr<InputComponent> input,
+               std::shared_ptr<GraphicsComponent> graphics);
+    void update(Graphics & graphics);
+
+    void setPosition(const glm::vec3 & position);
+    void setDirection(Helpers::Movement direction);
+    void setVelocity(int velocity);
+
 private:
-    glm::vec3 Position;
+    glm::vec3 position;
+    Helpers::Movement direction;
     int velocity;
     std::shared_ptr<InputComponent> inputComponent;
     std::shared_ptr<GraphicsComponent> graphicsComponent;
-
-    GameObject(std::shared_ptr<InputComponent> input,
-               std::shared_ptr<GraphicsComponent> graphics);
-
-public:
-    void update();
 };
 
 

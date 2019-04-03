@@ -32,6 +32,9 @@
 #include "Model.h"
 #include "Player.h"
 #include "Shader.h"
+#include "GameObject.h"
+#include "PlayerInputComponent.h"
+#include "PlayerGraphicsComponent.h"
 
 
 class Game {
@@ -60,14 +63,17 @@ private:
 //                           glm::vec3(0.0f, 1.0f, 0.0f),
 //                           0.0f, 0.0f);
 //    Camera camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-    Player player {glm::vec3(0.0f, 0.0f, 3.0f)};
+    GameObject player {std::make_shared<PlayerInputComponent>(),
+                       std::make_shared<PlayerGraphicsComponent>()};
+    Camera camera {glm::vec3(0.0f, 0.0f, 3.0f)};
+    Graphics graphics {};
 
     void initializeGlew();
     void setupRenderingContext();
     void init();
     void loadShaders();
     void handleWindowEvent(const SDL_WindowEvent & windowEvent);
-    void handleUserInput();
+//    void handleUserInput();
     void draw();
 };
 

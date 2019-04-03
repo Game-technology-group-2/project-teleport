@@ -25,10 +25,10 @@
 #include "GraphicsComponent.h"
 
 
-class PlayerGraphicsComponent : GraphicsComponent {
-  virtual void update(GameObject & obj, Graphics & graphics) {
-    // Graphics code...
-  }
+class PlayerGraphicsComponent : public GraphicsComponent {
+    void update(GameObject & obj, Graphics & graphics) override {
+
+    }
 };
 
 
