@@ -31,30 +31,51 @@
 //
 //}
 
-Player::Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-        : camera(Camera(position, up, yaw, pitch)) {
+//Player::Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
+//        : camera(Camera(position, up, yaw, pitch)) {
+//
+//}
 
+Player::Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch) {
+    Camera(position, up, yaw, pitch);
 }
 
-void Player::moveForward(GLfloat distance) {
-//    eye = glm::vec3(eye.x + distance * std::sin(rotation * Constants::degreeToRadian),
-//                    eye.y, eye.z - distance * std::cos(rotation * Constants::degreeToRadian));
-    this->camera.move(Helpers::Movement::FORWARD, 0.1f);
+void Player::move(Helpers::Movement direction, float deltaTime) {
+    camera.move(direction, deltaTime);
 }
 
-void Player::moveRight(GLfloat distance) {
-//    eye = glm::vec3(eye.x + distance * std::cos(rotation * Constants::degreeToRadian),
-//                    eye.y, eye.z + distance * std::sin(rotation * Constants::degreeToRadian));
-    this->camera.move(Helpers::Movement::RIGHT, 0.1f);
+void Player::processMouseMovement(float xOffset, float yoffset,
+                                  GLboolean constrainPitch) {
+    camera.processMouseMovement(xOffset, yoffset, constrainPitch);
 }
 
-void Player::moveUp(GLfloat distance) {
-//    eye.y += distance;
+float Player::getZoom() const {
+    return camera.getZoom();
 }
 
-void Player::lookRight(GLfloat distance) {
-//    rotation += distance;
+glm::mat4 Player::getViewMatrix() {
+    return camera.getViewMatrix();
 }
+
+//void Player::moveForward(GLfloat distance) {
+////    eye = glm::vec3(eye.x + distance * std::sin(rotation * Constants::degreeToRadian),
+////                    eye.y, eye.z - distance * std::cos(rotation * Constants::degreeToRadian));
+//    this->camera.move(Helpers::Movement::FORWARD, 0.1f);
+//}
+//
+//void Player::moveRight(GLfloat distance) {
+////    eye = glm::vec3(eye.x + distance * std::cos(rotation * Constants::degreeToRadian),
+////                    eye.y, eye.z + distance * std::sin(rotation * Constants::degreeToRadian));
+//    this->camera.move(Helpers::Movement::RIGHT, 0.1f);
+//}
+//
+//void Player::moveUp(GLfloat distance) {
+////    eye.y += distance;
+//}
+//
+//void Player::lookRight(GLfloat distance) {
+////    rotation += distance;
+//}
 
 //glm::mat4 Player::getCameraDirection() {
 //    glm::vec3 direction = glm::vec3(eye.x + 1.0f * std::sin(rotation * Constants::degreeToRadian), eye.y, eye.z - 1.0f * std::cos(rotation * Constants::degreeToRadian));

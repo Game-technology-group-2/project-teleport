@@ -34,17 +34,28 @@ private:
 //    glm::vec3 at;
 //    glm::vec3 up;
 //    GLfloat rotation;
-//    Camera camera;
-
-public:
     Camera camera;
 
+public:
+//    Camera camera;
+
 //    Player(glm::vec3 eye, glm::vec3 at, glm::vec3 up, GLfloat r);
-    Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch);
-    void moveForward(GLfloat distance);
-    void moveRight(GLfloat distance);
-    void moveUp(GLfloat distance);
-    void lookRight(GLfloat distance);
+//    Player(glm::vec3 position, glm::vec3 up, float yaw, float pitch);
+    Player(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
+           glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
+           float yaw = Constants::DefaultCameraValues::yaw,
+           float pitch = Constants::DefaultCameraValues::pitch);
+
+    void move(Helpers::Movement direction, float deltaTime);
+    void processMouseMovement(float xOffset, float yoffset,
+                              GLboolean constrainPitch = true);
+    float getZoom() const;
+    glm::mat4 getViewMatrix();
+
+//    void moveForward(GLfloat distance);
+//    void moveRight(GLfloat distance);
+//    void moveUp(GLfloat distance);
+//    void lookRight(GLfloat distance);
 //    void teleport(glm::vec3 newPosition);
 //    glm::mat4 getCameraDirection();
 };

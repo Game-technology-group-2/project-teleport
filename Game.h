@@ -59,7 +59,8 @@ private:
 //    Player player = Player(glm::vec3(-2.0f, 1.0f, 8.0f),
 //                           glm::vec3(0.0f, 1.0f, 0.0f),
 //                           0.0f, 0.0f);
-    Camera camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+//    Camera camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+    Player player {glm::vec3(0.0f, 0.0f, 3.0f)};
 
     void initializeGlew();
     void setupRenderingContext();
