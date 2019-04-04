@@ -36,23 +36,6 @@
 // An abstract camera class that processes input and calculates
 // the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera {
-private:
-    glm::vec3 Position;
-    glm::vec3 Front;
-    glm::vec3 Up;
-    glm::vec3 Right;
-    glm::vec3 WorldUp;
-    // Euler Angles
-    float Yaw;
-    float Pitch;
-    // Camera options
-    float MovementSpeed;
-    float MouseSensitivity;
-    float Zoom;
-
-    // Calculates the front vector from the Camera's (updated) Euler Angles
-    void updateCameraVectors();
-
 public:
     // Constructor with vectors
     explicit Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
@@ -79,6 +62,23 @@ public:
     void processMouseScroll(float yOffset);
 
     float getZoom() const;
+
+private:
+    glm::vec3 Position;
+    glm::vec3 Front;
+    glm::vec3 Up;
+    glm::vec3 Right;
+    glm::vec3 WorldUp;
+    // Euler Angles
+    float Yaw;
+    float Pitch;
+    // Camera options
+    float MovementSpeed;
+    float MouseSensitivity;
+    float Zoom;
+
+    // Calculates the front vector from the Camera's (updated) Euler Angles
+    void updateCameraVectors();
 };
 
 #endif //PROJECT_TELEPORT_CAMERA_H

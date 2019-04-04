@@ -33,9 +33,6 @@
 #include <iostream>
 
 class Shader {
-private:
-    unsigned int id;
-
 public:
     // constructor generates the shader on the fly
     Shader(const char *vertexPath, const char *fragmentPath,
@@ -66,6 +63,8 @@ public:
     unsigned int getId();
 
 private:
+    unsigned int id;
+
     // utility function for checking shader compilation/linking errors.
     void checkCompileErrors(GLuint shader, std::string type);
 };

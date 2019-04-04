@@ -29,10 +29,6 @@
 #include "Camera.h"
 
 class Player {
-private:
-    Camera camera;
-    Helpers::Direction movementDirection;
-
 public:
     Player(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
            glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
@@ -46,6 +42,10 @@ public:
                               GLboolean constrainPitch = true);
     float getZoom() const;
     glm::mat4 getViewMatrix();
+
+private:
+    Camera camera;
+    Helpers::Direction movementDirection;
 };
 
 #endif //PROJECT_TELEPORT_PLAYER_H

@@ -46,20 +46,19 @@ struct Texture {
 };
 
 class Mesh {
-    public:
-        /*  Mesh Data  */
-        std::vector<Vertex> vertices;
-        std::vector<unsigned int> indices;
-        std::vector<Texture> textures;
-        /*  Functions  */
-        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-             std::vector<Texture> textures);
-        void draw(Shader shader);
-    private:
-        /*  Render data  */
-        unsigned int VAO, VBO, EBO;
-        /*  Functions    */
-        void setupMesh();
+public:
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
+
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
+         std::vector<Texture> textures);
+    void draw(Shader shader);
+
+private:
+    unsigned int VAO, VBO, EBO;
+
+    void setupMesh();
 };
 
 #endif // PROJECT_TELEPORT_MESH_H
