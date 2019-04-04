@@ -21,14 +21,18 @@
 #ifndef PROJECT_TELEPORT_PLAYERGRAPHICSCOMPONENT_H
 #define PROJECT_TELEPORT_PLAYERGRAPHICSCOMPONENT_H
 
+#include "Camera.h"
 #include "Graphics.h"
 #include "GraphicsComponent.h"
 
 
 class PlayerGraphicsComponent : public GraphicsComponent {
-    void update(GameObject & obj, Graphics & graphics) override {
+public:
+    PlayerGraphicsComponent(const Camera & camera);
+    void update(GameObject & obj, Graphics & graphics) override;
 
-    }
+private:
+    Camera camera;
 };
 
 

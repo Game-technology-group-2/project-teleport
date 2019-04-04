@@ -22,7 +22,7 @@
 #define PROJECT_TELEPORT_HELPERS_H
 
 namespace Helpers {
-    enum class Movement {
+    enum class Direction {
         NONE,
         FORWARD,
         BACKWARD,

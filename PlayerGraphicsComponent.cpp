@@ -21,3 +21,10 @@
 #include "PlayerGraphicsComponent.h"
 
 
+PlayerGraphicsComponent::PlayerGraphicsComponent(const Camera & camera)
+        : camera(camera) {
+}
+
+void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
+    camera.move(obj.getDirection(), 0.1);
+}

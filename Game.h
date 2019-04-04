@@ -30,7 +30,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Model.h"
-#include "Player.h"
+//#include "Player.h"
 #include "Shader.h"
 #include "GameObject.h"
 #include "PlayerInputComponent.h"
@@ -39,15 +39,15 @@
 
 class Game {
 public:
-    Game();
-    ~Game();
+//    Game();
+//    ~Game();
     void runEventLoop();
 
 private:
-    SDL_Window *mainWindow; // window handle
-    SDL_GLContext mainContext; // OpenGL context handle
-    unsigned int mainWindowWidth;
-    unsigned int mainWindowHeight;
+//    SDL_Window *mainWindow; // window handle
+//    SDL_GLContext mainContext; // OpenGL context handle
+//    unsigned int mainWindowWidth;
+//    unsigned int mainWindowHeight;
 //    std::shared_ptr<Shader> skyboxShader;
 //    std::shared_ptr<Shader> textureShader;
 //    std::shared_ptr<Shader> colorInterpolationShader;
@@ -64,17 +64,18 @@ private:
 //                           0.0f, 0.0f);
 //    Camera camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
     GameObject player {std::make_shared<PlayerInputComponent>(),
-                       std::make_shared<PlayerGraphicsComponent>()};
-    Camera camera {glm::vec3(0.0f, 0.0f, 3.0f)};
-    Graphics graphics {};
+                       std::make_shared<PlayerGraphicsComponent>(Camera {glm::vec3(0.0f, 0.0f, 3.0f)})};
+//    Camera camera {glm::vec3(0.0f, 0.0f, 3.0f)};
+    Graphics graphics {Constants::BaseWindowSize::width,
+                       Constants::BaseWindowSize::height};
 
-    void initializeGlew();
-    void setupRenderingContext();
-    void init();
-    void loadShaders();
-    void handleWindowEvent(const SDL_WindowEvent & windowEvent);
+//    void initializeGlew();
+//    void setupRenderingContext();
+//    void init();
+//    void loadShaders();
+//    void handleWindowEvent(const SDL_WindowEvent & windowEvent);
 //    void handleUserInput();
-    void draw();
+//    void draw();
 };
 
 

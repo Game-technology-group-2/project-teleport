@@ -21,9 +21,39 @@
 #ifndef PROJECT_TELEPORT_GRAPHICS_H
 #define PROJECT_TELEPORT_GRAPHICS_H
 
+#include <GL/glew.h>
+#include <SDL2/SDL.h>
+#include <vector>
+
+#include "GameObject.h"
+#include "Model.h"
+#include "Shader.h"
+
+class GameObject;
 
 class Graphics {
+public:
+    Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight);
+    ~Graphics();
+    void draw(GameObject & gameObject);
+    void renderFrame();
+    void handleWindowEvent(const SDL_WindowEvent & windowEvent);
 
+private:
+    SDL_Window *mainWindow; // window handle
+    SDL_GLContext mainContext; // OpenGL context handle
+    unsigned int mainWindowWidth;
+    unsigned int mainWindowHeight;
+    std::shared_ptr<Shader> modelLoadingShader;
+//    std::vector<Mesh> meshObjects;
+//    std::vector<GLuint> textures;
+    std::vector<Model> models;
+    std::vector<GLuint> skybox = std::vector<GLuint>(6);
+
+    void loadModels();
+    void initializeGlew();
+    void setupRenderingContext();
+    void loadShaders();
 };
 
 

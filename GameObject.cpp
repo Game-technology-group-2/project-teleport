@@ -32,18 +32,31 @@ GameObject::GameObject(std::shared_ptr<InputComponent> input,
 }
 
 void GameObject::update(Graphics & graphics) {
-    this->inputComponent->update(*this);
-    this->graphicsComponent->update(*this, graphics);
+    inputComponent->update(*this);
+    graphicsComponent->update(*this, graphics);
 }
 
 void GameObject::setPosition(const glm::vec3 & position) {
     this->position = position;
 }
 
-void GameObject::setDirection(Helpers::Movement direction) {
+Helpers::Direction GameObject::getDirection() const {
+    return direction;
+}
+
+void GameObject::setDirection(Helpers::Direction direction) {
     this->direction = direction;
 }
 
 void GameObject::setVelocity(int velocity) {
     this->velocity = velocity;
+}
+
+const std::shared_ptr<InputComponent> & GameObject::getInputComponent() const {
+    return inputComponent;
+}
+
+const std::shared_ptr<GraphicsComponent> &
+GameObject::getGraphicsComponent() const {
+    return graphicsComponent;
 }

@@ -9,14 +9,16 @@ set(srcs main.cpp
         Constants.h
         Game.cpp Game.h
         GameObject.cpp GameObject.h
+        Graphics.cpp Graphics.h
         Helpers.h
         InputComponent.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h
 #        Player.cpp Player.h
         PlayerGraphicsComponent.cpp PlayerGraphicsComponent.h
+        PlayerInputComponent.cpp PlayerInputComponent.h
         Shader.h Shader.cpp
-        stb_image.h Graphics.cpp Graphics.h PlayerInputComponent.cpp PlayerInputComponent.h)
+        stb_image.h)
 
 add_executable(project_teleport ${srcs})
 

@@ -18,25 +18,50 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <GL/glew.h>
 #include <SDL_types.h>
 #include <SDL_scancode.h>
 #include <SDL_keyboard.h>
-#include <SDL_opengl.h>
 #include <SDL_mouse.h>
 #include "PlayerInputComponent.h"
 #include "Helpers.h"
 
 
 void PlayerInputComponent::update(GameObject & gameObject) {
+    Helpers::Direction direction = gameObject.getDirection();
     const Uint8 *keys = SDL_GetKeyboardState(nullptr);
-    if (keys[SDL_SCANCODE_W]) {
-        gameObject.setDirection(Helpers::Movement::FORWARD);
+    bool forward {false};
+    bool backward {false};
+    bool left {false};
+    bool right {false};
+
+    if (keys[SDL_SCANCODE_W] && !keys[SDL_SCANCODE_S]) {
+        forward = true;
+    } else if (keys[SDL_SCANCODE_S] && !keys[SDL_SCANCODE_W]) {
+        backward = true;
     }
 
-//        GameObject.move(Helpers::Movement::FORWARD, 0.1f);
-//    if (keys[SDL_SCANCODE_S]) (Helpers::Movement::BACKWARD, 0.1f);
-//    if (keys[SDL_SCANCODE_A]) player.move(Helpers::Movement::LEFT, 0.1f);
-//    if (keys[SDL_SCANCODE_D]) player.move(Helpers::Movement::RIGHT, 0.1f);
+    if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+        left = true;
+    } else if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+        right = true;
+    }
+
+    if (forward) {
+        if (right) {
+            direction = Helpers::Direction::FORWARD_RIGHT;
+        } else if (left) {
+            direction = Helpers::Direction::FORWARD_LEFT;
+        }
+    } else if (backward) {
+        if (right) {
+            direction = Helpers::Direction::BACKWARD_RIGHT;
+        } else if (left) {
+            direction = Helpers::Direction::BACKWARD_LEFT;
+        }
+    }
+
+    gameObject.setDirection(direction);
 
     if (keys[SDL_SCANCODE_1]) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

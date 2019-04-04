@@ -39,24 +39,24 @@ glm::mat4 Camera::getViewMatrix() {
     return glm::lookAt(Position, Position + Front, Up);
 }
 
-void Camera::move(Helpers::Movement direction, float deltaTime) {
+void Camera::move(Helpers::Direction direction, float deltaTime) {
     using namespace Helpers;
     float velocity = MovementSpeed * deltaTime;
 
     switch (direction) {
-        case Movement::FORWARD:
+        case Direction::FORWARD:
             Position += Front * velocity;
             break;
 
-        case Movement::BACKWARD:
+        case Direction::BACKWARD:
             Position -= Front * velocity;
             break;
 
-        case Movement::LEFT:
+        case Direction::LEFT:
             Position -= Right * velocity;
             break;
 
-        case Movement::RIGHT:
+        case Direction::RIGHT:
             Position += Right * velocity;
             break;
 
@@ -65,34 +65,34 @@ void Camera::move(Helpers::Movement direction, float deltaTime) {
     }
 }
 
-void Camera::processMouseMovement(float xOffset, float yoffset,
-                                  GLboolean constrainPitch) {
-    xOffset *= MouseSensitivity;
-    yoffset *= MouseSensitivity;
+//void Camera::processMouseMovement(float xOffset, float yoffset,
+//                                  GLboolean constrainPitch) {
+//    xOffset *= MouseSensitivity;
+//    yoffset *= MouseSensitivity;
+//
+//    Yaw   += xOffset;
+//    Pitch -= yoffset;
+//
+//    // Make sure that when pitch is out of bounds, screen doesn't get flipped
+//    if (constrainPitch) {
+//        if (Pitch > 89.0f)
+//            Pitch = 89.0f;
+//        if (Pitch < -89.0f)
+//            Pitch = -89.0f;
+//    }
+//
+//    // Update Front, Right and Up Vectors using the updated Euler angles
+//    updateCameraVectors();
+//}
 
-    Yaw   += xOffset;
-    Pitch -= yoffset;
-
-    // Make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (constrainPitch) {
-        if (Pitch > 89.0f)
-            Pitch = 89.0f;
-        if (Pitch < -89.0f)
-            Pitch = -89.0f;
-    }
-
-    // Update Front, Right and Up Vectors using the updated Euler angles
-    updateCameraVectors();
-}
-
-void Camera::processMouseScroll(float yOffset) {
-    if (Zoom >= 1.0f && Zoom <= 45.0f)
-        Zoom -= yOffset;
-    if (Zoom <= 1.0f)
-        Zoom = 1.0f;
-    if (Zoom >= 45.0f)
-        Zoom = 45.0f;
-}
+//void Camera::processMouseScroll(float yOffset) {
+//    if (Zoom >= 1.0f && Zoom <= 45.0f)
+//        Zoom -= yOffset;
+//    if (Zoom <= 1.0f)
+//        Zoom = 1.0f;
+//    if (Zoom >= 45.0f)
+//        Zoom = 45.0f;
+//}
 
 void Camera::updateCameraVectors() {
     // Calculate the new Front vector

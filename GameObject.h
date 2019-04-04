@@ -39,12 +39,19 @@ public:
     void update(Graphics & graphics);
 
     void setPosition(const glm::vec3 & position);
-    void setDirection(Helpers::Movement direction);
+
+    Helpers::Direction getDirection() const;
+    void setDirection(Helpers::Direction direction);
+
     void setVelocity(int velocity);
+
+    const std::shared_ptr<InputComponent> & getInputComponent() const;
+
+    const std::shared_ptr<GraphicsComponent> & getGraphicsComponent() const;
 
 private:
     glm::vec3 position;
-    Helpers::Movement direction;
+    Helpers::Direction direction;
     int velocity;
     std::shared_ptr<InputComponent> inputComponent;
     std::shared_ptr<GraphicsComponent> graphicsComponent;

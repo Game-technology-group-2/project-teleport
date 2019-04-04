@@ -26,6 +26,7 @@
 
 
 class GameObject;
+class Graphics;
 
 class GraphicsComponent {
 public:
