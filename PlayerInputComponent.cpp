@@ -18,12 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "PlayerInputComponent.h"
+
 #include <GL/glew.h>
 #include <SDL_types.h>
 #include <SDL_scancode.h>
 #include <SDL_keyboard.h>
 #include <SDL_mouse.h>
-#include "PlayerInputComponent.h"
+
 #include "Helpers.h"
 
 

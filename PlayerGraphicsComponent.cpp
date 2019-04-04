@@ -20,11 +20,16 @@
 
 #include "PlayerGraphicsComponent.h"
 
+#include <utility>
 
-PlayerGraphicsComponent::PlayerGraphicsComponent(const Camera & camera)
-        : camera(camera) {
+
+PlayerGraphicsComponent::PlayerGraphicsComponent(std::shared_ptr<Camera> camera)
+        : camera(std::move(camera)) {
+
 }
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    camera.move(obj.getDirection(), 0.1);
+void PlayerGraphicsComponent::update(GameObject & obj,
+                                     std::shared_ptr<Graphics> graphics) {
+    camera->move(obj.getDirection(), 0.1);
+    graphics->draw(0, 0, 0);
 }

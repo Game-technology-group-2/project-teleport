@@ -21,12 +21,16 @@
 #include "Graphics.h"
 
 #include "assetsPaths.h"
+#include "Camera.h"
 #include "Model.h"
 #include "Shader.h"
 
 
-Graphics::Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight)
-        : mainWindowWidth(mainWindowWidth), mainWindowHeight(mainWindowHeight) {
+Graphics::Graphics(unsigned int mainWindowWidth,
+                   unsigned int mainWindowHeight,
+                   std::shared_ptr<Camera> camera)
+        : mainWindowWidth(mainWindowWidth), mainWindowHeight(mainWindowHeight),
+          camera(camera) {
     setupRenderingContext();
     initializeGlew();
     loadShaders();
@@ -43,23 +47,45 @@ Graphics::~Graphics() {
 
 void Graphics::loadModels() {
 //    loadCubeMap(assetsPaths::skyboxTextures, this->skybox);
-//
-//    textures = {loadTexture(assetsPaths::concreteTexture),
-//                loadTexture(assetsPaths::carpetTexture),};
-
-//    meshObjects = {Mesh(assetsPaths::cubeObject),};
 
     this->models = {Model(assetsPaths::cubeModel),
                     Model(assetsPaths::deskModel),
                     Model(assetsPaths::nanosuitModel)};
 }
 
-void Graphics::draw(GameObject & gameObject) {
+void Graphics::draw(int x, int y, int z) {
+    // Don't forget to enable shader before setting uniforms
+    this->modelLoadingShader->use();
 
+    // view/projection transformations
+    glm::mat4 projection = glm::perspective(glm::radians(this->camera->getZoom()),
+                                            (float)this->mainWindowWidth / (float)this->mainWindowHeight,
+                                            0.1f, 100.0f);
+    glm::mat4 view = this->camera->getViewMatrix();
+    this->modelLoadingShader->setMat4("projection", projection);
+    this->modelLoadingShader->setMat4("view", view);
+
+    // Render the loaded model
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
+    model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+
+    this->modelLoadingShader->setMat4("model", model);
+    models[2].draw(*(this->modelLoadingShader));
+
+    glUseProgram(0);
 }
 
 void Graphics::renderFrame() {
-    SDL_GL_SwapWindow(mainWindow); // swap buffers
+    // Swap buffers
+    SDL_GL_SwapWindow(mainWindow);
+
+    // Prepare the next frame
+    glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glDisable(GL_CULL_FACE);
 }
 
 void Graphics::handleWindowEvent(const SDL_WindowEvent & windowEvent) {
@@ -83,20 +109,20 @@ void Graphics::initializeGlew() {
 }
 
 void Graphics::setupRenderingContext() {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) // Initialize video
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
         throw std::runtime_error("Unable to initialize SDL : "
                                  + std::string(SDL_GetError()));
 
-    // Request an OpenGL 3.0 context.
+    // Request an OpenGL 3 context
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
                         SDL_GL_CONTEXT_PROFILE_CORE);
 
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);  // double buffering on
-    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8); // 8 bit alpha buffering
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-    // Turn on x4 multisampling anti-aliasing (MSAA)
+
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
     this->mainWindow = SDL_CreateWindow("Project Teleport",
@@ -119,7 +145,6 @@ void Graphics::setupRenderingContext() {
                                  + std::string(SDL_GetError()));
     }
 
-    // Create openGL context and attach to window
     this->mainContext = SDL_GL_CreateContext(this->mainWindow);
 
     int swapIntervalReturn = SDL_GL_SetSwapInterval(0);

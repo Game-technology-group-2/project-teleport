@@ -22,31 +22,34 @@
 #define PROJECT_TELEPORT_GRAPHICS_H
 
 #include <GL/glew.h>
+#include <memory>
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "GameObject.h"
+#include "Camera.h"
 #include "Model.h"
 #include "Shader.h"
 
-class GameObject;
 
 class Graphics {
 public:
-    Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight);
+    Graphics(unsigned int mainWindowWidth,
+             unsigned int mainWindowHeight,
+             std::shared_ptr<Camera> camera);
     ~Graphics();
-    void draw(GameObject & gameObject);
+    void draw(int x, int y, int z);
     void renderFrame();
     void handleWindowEvent(const SDL_WindowEvent & windowEvent);
 
 private:
-    SDL_Window *mainWindow; // window handle
-    SDL_GLContext mainContext; // OpenGL context handle
+    SDL_Window *mainWindow;
+    SDL_GLContext mainContext;
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
     std::shared_ptr<Shader> modelLoadingShader;
     std::vector<Model> models;
-    std::vector<GLuint> skybox = std::vector<GLuint>(6);
+//    std::vector<GLuint> skybox = std::vector<GLuint>(6);
+    std::shared_ptr<Camera> camera;
 
     void loadModels();
     void initializeGlew();

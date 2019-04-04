@@ -28,11 +28,11 @@
 
 class PlayerGraphicsComponent : public GraphicsComponent {
 public:
-    PlayerGraphicsComponent(const Camera & camera);
-    void update(GameObject & obj, Graphics & graphics) override;
+    explicit PlayerGraphicsComponent(std::shared_ptr<Camera> camera);
+    void update(GameObject & obj, std::shared_ptr<Graphics> graphics) override;
 
 private:
-    Camera camera;
+    std::shared_ptr<Camera> camera;
 };
 
 

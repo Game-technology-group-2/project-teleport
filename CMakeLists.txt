@@ -14,7 +14,6 @@ set(srcs main.cpp
         InputComponent.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h
-#        Player.cpp Player.h
         PlayerGraphicsComponent.cpp PlayerGraphicsComponent.h
         PlayerInputComponent.cpp PlayerInputComponent.h
         Shader.h Shader.cpp

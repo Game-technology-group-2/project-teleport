@@ -36,7 +36,7 @@ class GameObject {
 public:
     GameObject(std::shared_ptr<InputComponent> input,
                std::shared_ptr<GraphicsComponent> graphics);
-    void update(Graphics & graphics);
+    void update(std::shared_ptr<Graphics> graphics);
 
     void setPosition(const glm::vec3 & position);
 

@@ -31,7 +31,7 @@ GameObject::GameObject(std::shared_ptr<InputComponent> input,
 
 }
 
-void GameObject::update(Graphics & graphics) {
+void GameObject::update(std::shared_ptr<Graphics> graphics) {
     inputComponent->update(*this);
     graphicsComponent->update(*this, graphics);
 }
