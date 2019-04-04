@@ -45,8 +45,6 @@ private:
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
     std::shared_ptr<Shader> modelLoadingShader;
-//    std::vector<Mesh> meshObjects;
-//    std::vector<GLuint> textures;
     std::vector<Model> models;
     std::vector<GLuint> skybox = std::vector<GLuint>(6);
 
