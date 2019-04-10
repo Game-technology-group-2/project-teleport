@@ -23,91 +23,44 @@
 
 #include "Camera.h"
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-        : Front(glm::vec3(0.0f, 0.0f, -1.0f)),
-          MovementSpeed(Constants::DefaultCameraValues::speed),
-          MouseSensitivity(Constants::DefaultCameraValues::sensitivity),
-          Zoom(Constants::DefaultCameraValues::zoom) {
-    Position = position;
-    WorldUp = up;
-    Yaw = yaw;
-    Pitch = pitch;
-    updateCameraVectors();
-}
+#include <glm/gtc/matrix_transform.hpp>
 
-glm::mat4 Camera::getViewMatrix() {
-    return glm::lookAt(Position, Position + Front, Up);
-}
 
-void Camera::move(Helpers::Direction direction, float deltaTime) {
-    using namespace Helpers;
-    float velocity = MovementSpeed * deltaTime;
-
-    switch (direction) {
-        case Direction::FORWARD:
-            Position += Front * velocity;
-            break;
-
-        case Direction::BACKWARD:
-            Position -= Front * velocity;
-            break;
-
-        case Direction::LEFT:
-            Position -= Right * velocity;
-            break;
-
-        case Direction::RIGHT:
-            Position += Right * velocity;
-            break;
-
-        default:
-            break;
-    }
-}
-
-//void Camera::processMouseMovement(float xOffset, float yoffset,
-//                                  GLboolean constrainPitch) {
-//    xOffset *= MouseSensitivity;
-//    yoffset *= MouseSensitivity;
-//
-//    Yaw   += xOffset;
-//    Pitch -= yoffset;
-//
-//    // Make sure that when pitch is out of bounds, screen doesn't get flipped
-//    if (constrainPitch) {
-//        if (Pitch > 89.0f)
-//            Pitch = 89.0f;
-//        if (Pitch < -89.0f)
-//            Pitch = -89.0f;
-//    }
-//
-//    // Update Front, Right and Up Vectors using the updated Euler angles
+Camera::Camera(glm::vec3 up, float yaw, float pitch)
+        : Up(up),
+          Yaw(yaw),
+          Pitch(pitch) {
 //    updateCameraVectors();
-//}
+}
 
-//void Camera::processMouseScroll(float yOffset) {
-//    if (Zoom >= 1.0f && Zoom <= 45.0f)
-//        Zoom -= yOffset;
-//    if (Zoom <= 1.0f)
-//        Zoom = 1.0f;
-//    if (Zoom >= 45.0f)
-//        Zoom = 45.0f;
-//}
+glm::mat4 Camera::getViewMatrix(GameObject & player, PlayerPhysicsComponent & playerPhysics) {
+    return glm::lookAt(player.getPosition(), player.getPosition() + playerPhysics.getFront(), Up);
+}
 
-void Camera::updateCameraVectors() {
-    // Calculate the new Front vector
+void Camera::updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent) {
+    // Calculate the new front vector
     glm::vec3 front;
     front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
     front.y = sin(glm::radians(Pitch));
     front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    glm::vec3 normalizedFront {glm::normalize(front)};
     // Normalize the vectors, because their length gets closer to 0
     // the more you look up or down which results in slower movement.
-    Front = glm::normalize(front);
-    // Also re-calculate the Right and Up vector
-    Right = glm::normalize(glm::cross(Front, WorldUp));
-    Up    = glm::normalize(glm::cross(Right, Front));
+    playerPhysicsComponent.setFront(normalizedFront);
+    glm::vec3 worldUp {playerPhysicsComponent.getWorldUp()};
+    glm::vec3 normalizedRight = glm::normalize(glm::cross(normalizedFront, worldUp));
+    playerPhysicsComponent.setRight(normalizedRight);
+    Up = glm::normalize(glm::cross(normalizedRight, normalizedFront));
 }
 
 float Camera::getZoom() const {
     return Zoom;
+}
+
+float Camera::getYaw() const {
+    return Yaw;
+}
+
+float Camera::getPitch() const {
+    return Pitch;
 }

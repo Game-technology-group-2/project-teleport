@@ -21,19 +21,36 @@
  */
 
 #include "GameObject.h"
+
+#include <utility>
+
 #include "GraphicsComponent.h"
 #include "InputComponent.h"
 
 
-GameObject::GameObject(std::shared_ptr<InputComponent> input,
-                       std::shared_ptr<GraphicsComponent> graphics)
-        : inputComponent(std::move(input)), graphicsComponent(std::move(graphics)) {
+GameObject::GameObject(InputComponent * input,
+                       PhysicsComponent * physics,
+                       GraphicsComponent * graphics,
+                       glm::vec3 position)
+        : inputComponent(input), physicsComponent(physics),
+          graphicsComponent(graphics), position(position) {
 
 }
 
-void GameObject::update(std::shared_ptr<Graphics> graphics) {
+GameObject::~GameObject() {
+    delete inputComponent;
+    delete physicsComponent;
+    delete graphicsComponent;
+}
+
+void GameObject::update(Graphics & graphics) {
     inputComponent->update(*this);
+    physicsComponent->update(*this);
     graphicsComponent->update(*this, graphics);
+}
+
+glm::vec3 GameObject::getPosition() const {
+    return position;
 }
 
 void GameObject::setPosition(const glm::vec3 & position) {
@@ -52,11 +69,14 @@ void GameObject::setVelocity(int velocity) {
     this->velocity = velocity;
 }
 
-const std::shared_ptr<InputComponent> & GameObject::getInputComponent() const {
+InputComponent * GameObject::getInputComponent() const {
     return inputComponent;
 }
 
-const std::shared_ptr<GraphicsComponent> &
-GameObject::getGraphicsComponent() const {
+PhysicsComponent * GameObject::getPhysicsComponent() const {
+    return physicsComponent;
+}
+
+GraphicsComponent * GameObject::getGraphicsComponent() const {
     return graphicsComponent;
 }

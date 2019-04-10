@@ -24,61 +24,34 @@
 #ifndef PROJECT_TELEPORT_CAMERA_H
 #define PROJECT_TELEPORT_CAMERA_H
 
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "Constants.h"
+#include "GameObject.h"
+#include "PlayerPhysicsComponent.h"
+
 #include <glm/vec3.hpp>
 
-#include "Constants.h"
-#include "Helpers.h"
 
-
-// An abstract camera class that processes input and calculates
-// the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera {
 public:
-    // Constructor with vectors
-    explicit Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
-                    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
-                    float yaw = Constants::DefaultCameraValues::yaw,
-                    float pitch = Constants::DefaultCameraValues::pitch);
+    explicit Camera(glm::vec3 up, float yaw, float pitch);
 
     // Returns the view matrix calculated using Euler Angles
     // and the LookAt Matrix
-    glm::mat4 getViewMatrix();
-
-    // Processes input received from any keyboard-like input system.
-    // Accepts input parameter in the form of camera
-    // defined ENUM (to abstract it from windowing systems)
-    void move(Helpers::Direction direction, float deltaTime);
-
-    // Processes input received from a mouse input system.
-    // Expects the offset value in both the x and y direction.
-    void processMouseMovement(float xOffset, float yoffset,
-                              GLboolean constrainPitch = true);
-
-    // Processes input received from a mouse scroll-wheel event.
-    // Only requires input on the vertical wheel-axis
-    void processMouseScroll(float yOffset);
+    glm::mat4 getViewMatrix(GameObject & player, PlayerPhysicsComponent & playerPhysics);
 
     float getZoom() const;
+    float getYaw() const;
+    float getPitch() const;
 
 private:
-    glm::vec3 Position;
-    glm::vec3 Front;
     glm::vec3 Up;
-    glm::vec3 Right;
-    glm::vec3 WorldUp;
-    // Euler Angles
     float Yaw;
     float Pitch;
-    // Camera options
-    float MovementSpeed;
-    float MouseSensitivity;
-    float Zoom;
+    float MouseSensitivity {Constants::DefaultCameraValues::sensitivity};
+    float Zoom {Constants::DefaultCameraValues::zoom};
 
     // Calculates the front vector from the Camera's (updated) Euler Angles
-    void updateCameraVectors();
+    void updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent);
 };
 
 #endif //PROJECT_TELEPORT_CAMERA_H

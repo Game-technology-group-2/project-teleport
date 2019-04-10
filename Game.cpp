@@ -20,24 +20,29 @@
 
 #include "Game.h"
 
-#include <memory>
-#include <SDL2/SDL.h>
-
 #include "Constants.h"
 #include "PlayerGraphicsComponent.h"
 #include "PlayerInputComponent.h"
+#include "PlayerPhysicsComponent.h"
+
+#include <memory>
+#include <SDL2/SDL.h>
 
 
 Game::Game() {
-    std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
+    camera = std::make_shared<Camera>(glm::vec3(0.0f, 1.0f, 0.0f),
+                                      Constants::DefaultCameraValues::yaw,
+                                      Constants::DefaultCameraValues::pitch);
+
+    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent};
+
+    player = std::make_shared<GameObject>(new PlayerInputComponent(), playerPhysics,
+                                          new PlayerGraphicsComponent(camera),
+                                          Constants::spawnPosition);
 
     graphics = std::make_shared<Graphics>(Constants::BaseWindowSize::width,
                                           Constants::BaseWindowSize::height,
-                                          camera);
-
-
-    player = std::make_shared<GameObject>(std::make_shared<PlayerInputComponent>(),
-                                          std::make_shared<PlayerGraphicsComponent>(camera));
+                                          camera, player, playerPhysics);
 }
 
 void Game::runEventLoop() {
@@ -60,7 +65,7 @@ void Game::runEventLoop() {
                     break;
             }
         }
-        player->update(graphics);
+        player->update(*graphics);
         graphics->renderFrame();
 
         // Wait a bit if rendering too fast

@@ -1,5 +1,3 @@
-#include <utility>
-
 /**
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
@@ -20,17 +18,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "PlayerGraphicsComponent.h"
+#ifndef PROJECT_TELEPORT_PHYSICSCOMPONENT_H
+#define PROJECT_TELEPORT_PHYSICSCOMPONENT_H
 
-#include <utility>
+#include "GameObject.h"
 
 
-PlayerGraphicsComponent::PlayerGraphicsComponent(std::shared_ptr<Camera> camera)
-        : camera(std::move(camera)) {
+class GameObject;
 
-}
+class PhysicsComponent {
+public:
+    virtual ~PhysicsComponent() = default;
+    virtual void update(GameObject & gameObject) = 0;
+};
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-//    camera->move(obj.getDirection(), 0.1);
-    graphics.draw(0, 0, 0);
-}
+
+#endif //PROJECT_TELEPORT_PHYSICSCOMPONENT_H

@@ -23,7 +23,7 @@
 
 #include "GameObject.h"
 
-class GameObject;
+//class GameObject;
 
 class InputComponent {
 public:

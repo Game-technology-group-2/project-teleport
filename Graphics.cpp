@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 /**
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
@@ -25,12 +29,15 @@
 #include "Model.h"
 #include "Shader.h"
 
+#include <utility>
 
-Graphics::Graphics(unsigned int mainWindowWidth,
-                   unsigned int mainWindowHeight,
-                   std::shared_ptr<Camera> camera)
+
+Graphics::Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight,
+                   std::shared_ptr<Camera> camera, std::shared_ptr<GameObject> player,
+                   PlayerPhysicsComponent * playerPhysics)
         : mainWindowWidth(mainWindowWidth), mainWindowHeight(mainWindowHeight),
-          camera(camera) {
+          camera(std::move(camera)), player(std::move(player)),
+          playerPhysics(playerPhysics) {
     setupRenderingContext();
     initializeGlew();
     loadShaders();
@@ -61,7 +68,7 @@ void Graphics::draw(int x, int y, int z) {
     glm::mat4 projection = glm::perspective(glm::radians(this->camera->getZoom()),
                                             (float)this->mainWindowWidth / (float)this->mainWindowHeight,
                                             0.1f, 100.0f);
-    glm::mat4 view = this->camera->getViewMatrix();
+    glm::mat4 view = this->camera->getViewMatrix(*player, *playerPhysics);
     this->modelLoadingShader->setMat4("projection", projection);
     this->modelLoadingShader->setMat4("view", view);
 

@@ -21,23 +21,29 @@
 #ifndef PROJECT_TELEPORT_GAMEOBJECT_H
 #define PROJECT_TELEPORT_GAMEOBJECT_H
 
+#include "Helpers.h"
+
 #include <glm/vec3.hpp>
 #include <memory>
 
-#include "InputComponent.h"
-#include "GraphicsComponent.h"
-#include "Helpers.h"
 
-
+class Graphics;
 class InputComponent;
 class GraphicsComponent;
+class PhysicsComponent;
 
 class GameObject {
 public:
-    GameObject(std::shared_ptr<InputComponent> input,
-               std::shared_ptr<GraphicsComponent> graphics);
-    void update(std::shared_ptr<Graphics> graphics);
+    GameObject(InputComponent * input,
+               PhysicsComponent * physics,
+               GraphicsComponent * graphics,
+               glm::vec3 position);
 
+    virtual ~GameObject();
+
+    void update(Graphics & graphics);
+
+    glm::vec3 getPosition() const;
     void setPosition(const glm::vec3 & position);
 
     Helpers::Direction getDirection() const;
@@ -45,16 +51,19 @@ public:
 
     void setVelocity(int velocity);
 
-    const std::shared_ptr<InputComponent> & getInputComponent() const;
+    InputComponent * getInputComponent() const;
 
-    const std::shared_ptr<GraphicsComponent> & getGraphicsComponent() const;
+    GraphicsComponent * getGraphicsComponent() const;
+
+    PhysicsComponent * getPhysicsComponent() const;
 
 private:
     glm::vec3 position;
     Helpers::Direction direction;
     int velocity;
-    std::shared_ptr<InputComponent> inputComponent;
-    std::shared_ptr<GraphicsComponent> graphicsComponent;
+    InputComponent * inputComponent;
+    PhysicsComponent * physicsComponent;
+    GraphicsComponent * graphicsComponent;
 };
 
 

@@ -14,8 +14,10 @@ set(srcs main.cpp
         InputComponent.h
         Mesh.cpp Mesh.h
         Model.cpp Model.h
+        PhysicsComponent.h
         PlayerGraphicsComponent.cpp PlayerGraphicsComponent.h
         PlayerInputComponent.cpp PlayerInputComponent.h
+        PlayerPhysicsComponent.cpp PlayerPhysicsComponent.h
         Shader.h Shader.cpp
         stb_image.h)
 

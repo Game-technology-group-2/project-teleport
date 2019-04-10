@@ -30,8 +30,8 @@ class Graphics;
 
 class GraphicsComponent {
 public:
-    virtual void update(GameObject & gameObject,
-                        std::shared_ptr<Graphics> graphics) = 0;
+    virtual ~GraphicsComponent() = default;
+    virtual void update(GameObject & gameObject, Graphics & graphics) = 0;
 };
 
 

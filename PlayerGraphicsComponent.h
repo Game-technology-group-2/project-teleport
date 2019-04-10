@@ -21,15 +21,16 @@
 #ifndef PROJECT_TELEPORT_PLAYERGRAPHICSCOMPONENT_H
 #define PROJECT_TELEPORT_PLAYERGRAPHICSCOMPONENT_H
 
+#include "GraphicsComponent.h"
+
 #include "Camera.h"
 #include "Graphics.h"
-#include "GraphicsComponent.h"
 
 
 class PlayerGraphicsComponent : public GraphicsComponent {
 public:
     explicit PlayerGraphicsComponent(std::shared_ptr<Camera> camera);
-    void update(GameObject & obj, std::shared_ptr<Graphics> graphics) override;
+    void update(GameObject & obj, Graphics & graphics) override;
 
 private:
     std::shared_ptr<Camera> camera;
