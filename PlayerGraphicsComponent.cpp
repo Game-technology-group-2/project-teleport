@@ -1,5 +1,3 @@
-#include <utility>
-
 /**
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
