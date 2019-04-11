@@ -39,36 +39,26 @@ void PlayerPhysicsComponent::update(GameObject & gameObject) {
     auto position {gameObject.getPosition()};
     switch (gameObject.getDirection()) {
         case Direction::FORWARD:
-//            std::cout << "F" << std::endl;
             gameObject.setPosition(position + front * velocity);
             break;
 
         case Direction::BACKWARD:
-//            std::cout << "B" << std::endl;
             gameObject.setPosition(position - front * velocity);
             break;
 
         case Direction::LEFT:
-//            std::cout << "L" << std::endl;
             gameObject.setPosition(position - right * velocity);
             break;
 
         case Direction::RIGHT:
-//            std::cout << "R" << std::endl;
             gameObject.setPosition(position + right * velocity);
             break;
 
         default:
-//            std::cout << "D" << std::endl;
             break;
     }
 
     updateVectors();
-
-//    std::cout << "{" << gameObject.getPosition().x
-//              << ", " << gameObject.getPosition().y
-//              << ", " << gameObject.getPosition().z
-//              << "}" << std::endl;
 }
 
 void PlayerPhysicsComponent::updateVectors() {
