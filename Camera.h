@@ -35,10 +35,7 @@ class Camera {
 public:
     explicit Camera(glm::vec3 up, float yaw, float pitch);
 
-    // Returns the view matrix calculated using Euler Angles
-    // and the LookAt Matrix
-    glm::mat4 getViewMatrix(GameObject & player, PlayerPhysicsComponent & playerPhysics);
-
+    glm::vec3 getUp() const;
     float getZoom() const;
     float getYaw() const;
     float getPitch() const;

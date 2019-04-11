@@ -33,10 +33,6 @@ Camera::Camera(glm::vec3 up, float yaw, float pitch)
 //    updateCameraVectors();
 }
 
-glm::mat4 Camera::getViewMatrix(GameObject & player, PlayerPhysicsComponent & playerPhysics) {
-    return glm::lookAt(player.getPosition(), player.getPosition() + playerPhysics.getFront(), Up);
-}
-
 void Camera::updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent) {
     // Calculate the new front vector
     glm::vec3 front;
@@ -51,6 +47,10 @@ void Camera::updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent
     glm::vec3 normalizedRight = glm::normalize(glm::cross(normalizedFront, worldUp));
     playerPhysicsComponent.setRight(normalizedRight);
     Up = glm::normalize(glm::cross(normalizedRight, normalizedFront));
+}
+
+glm::vec3 Camera::getUp() const {
+    return Up;
 }
 
 float Camera::getZoom() const {

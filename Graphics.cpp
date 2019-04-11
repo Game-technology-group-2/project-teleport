@@ -58,23 +58,23 @@ void Graphics::loadModels() {
 
 void Graphics::draw(int x, int y, int z) {
     // Don't forget to enable shader before setting uniforms
-    this->modelLoadingShader->use();
+    modelLoadingShader->use();
 
     // view/projection transformations
-    glm::mat4 projection = glm::perspective(glm::radians(this->camera->getZoom()),
-                                            (float)this->mainWindowWidth / (float)this->mainWindowHeight,
-                                            0.1f, 100.0f);
-    glm::mat4 view = this->camera->getViewMatrix(*player, *playerPhysics);
-    this->modelLoadingShader->setMat4("projection", projection);
-    this->modelLoadingShader->setMat4("view", view);
+    glm::mat4 projection {glm::perspective(glm::radians(camera->getZoom()),
+                                           (float)mainWindowWidth / (float)mainWindowHeight,
+                                           0.1f, 100.0f)};
+
+    modelLoadingShader->setMat4("projection", projection);
+    modelLoadingShader->setMat4("view", getViewMatrix());
 
     // Render the loaded model
-    glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 model {glm::mat4(1.0f)};
     model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
     model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
 
-    this->modelLoadingShader->setMat4("model", model);
-    models[2].draw(*(this->modelLoadingShader));
+    modelLoadingShader->setMat4("model", model);
+    models[2].draw(*modelLoadingShader);
 
     glUseProgram(0);
 }
@@ -166,4 +166,8 @@ void Graphics::loadShaders() {
 //                                       assetsPaths::colorInterpolationShader.fragment.c_str());
     modelLoadingShader = std::make_shared<Shader>(assetsPaths::modelLoadingShader.vertex.c_str(),
                                                   assetsPaths::modelLoadingShader.fragment.c_str());
+}
+
+glm::mat4 Graphics::getViewMatrix() {
+    return glm::lookAt(player->getPosition(), player->getPosition() + playerPhysics->getFront(), camera->getUp());
 }

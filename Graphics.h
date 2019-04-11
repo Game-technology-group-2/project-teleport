@@ -58,6 +58,7 @@ private:
     void initializeGlew();
     void setupRenderingContext();
     void loadShaders();
+    glm::mat4 getViewMatrix();
 };
 
 
