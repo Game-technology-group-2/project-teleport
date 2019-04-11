@@ -20,18 +20,19 @@
 
 #include "PlayerInputComponent.h"
 
+#include "Helpers.h"
+
 #include <GL/glew.h>
 #include <SDL_types.h>
 #include <SDL_scancode.h>
 #include <SDL_keyboard.h>
 #include <SDL_mouse.h>
-
-#include "Helpers.h"
+#include <iostream>
 
 
 void PlayerInputComponent::update(GameObject & gameObject) {
-    Helpers::Direction direction = gameObject.getDirection();
-    const Uint8 *keys = SDL_GetKeyboardState(nullptr);
+    auto direction {Helpers::Direction::NONE};
+    const Uint8 *keys {SDL_GetKeyboardState(nullptr)};
     bool forward {false};
     bool backward {false};
     bool left {false};
@@ -54,12 +55,16 @@ void PlayerInputComponent::update(GameObject & gameObject) {
             direction = Helpers::Direction::FORWARD_RIGHT;
         } else if (left) {
             direction = Helpers::Direction::FORWARD_LEFT;
+        } else {
+            direction = Helpers::Direction::FORWARD;
         }
     } else if (backward) {
         if (right) {
             direction = Helpers::Direction::BACKWARD_RIGHT;
         } else if (left) {
             direction = Helpers::Direction::BACKWARD_LEFT;
+        } else {
+            direction = Helpers::Direction::BACKWARD;
         }
     }
 

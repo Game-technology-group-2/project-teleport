@@ -26,29 +26,28 @@
 
 #include "Constants.h"
 #include "GameObject.h"
-#include "PlayerPhysicsComponent.h"
+//#include "PlayerPhysicsComponent.h"
 
 #include <glm/vec3.hpp>
 
 
 class Camera {
 public:
-    explicit Camera(glm::vec3 up, float yaw, float pitch);
+    explicit Camera(float yaw, float pitch);
 
-    glm::vec3 getUp() const;
+//    glm::vec3 getUp() const;
     float getZoom() const;
     float getYaw() const;
     float getPitch() const;
+//    // Calculates the front vector from the Camera's (updated) Euler Angles
+//    void updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent);
 
 private:
-    glm::vec3 Up;
+//    glm::vec3 Up;
     float Yaw;
     float Pitch;
     float MouseSensitivity {Constants::DefaultCameraValues::sensitivity};
     float Zoom {Constants::DefaultCameraValues::zoom};
-
-    // Calculates the front vector from the Camera's (updated) Euler Angles
-    void updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent);
 };
 
 #endif //PROJECT_TELEPORT_CAMERA_H

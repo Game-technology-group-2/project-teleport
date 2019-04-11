@@ -23,12 +23,14 @@
 
 #include "PhysicsComponent.h"
 
+#include "Camera.h"
+
 #include <memory>
 
 
 class PlayerPhysicsComponent : public PhysicsComponent {
 public:
-    PlayerPhysicsComponent();
+    explicit PlayerPhysicsComponent(std::shared_ptr<Camera> camera);
 
     void update(GameObject & gameObject) override;
 
@@ -40,11 +42,17 @@ public:
 
     const glm::vec3 & getWorldUp() const;
 
+    const glm::vec3 & getUp() const;
+
 private:
-    float movementSpeed;
-    glm::vec3 front {glm::vec3(0.0f, 0.0f, -1.0f)};
+    std::shared_ptr<Camera> camera;
+    float movementSpeed {Constants::DefaultCameraValues::speed};
+    glm::vec3 worldUp {0.0f, 1.0f, 0.0f};
+    glm::vec3 up {0.0f, 1.0f, 0.0f};
+    glm::vec3 front {0.0f, 0.0f, -1.0f};
     glm::vec3 right;
-    glm::vec3 worldUp {glm::vec3(0.0f, 1.0f, 0.0f)};
+
+    void updateVectors();
 };
 
 

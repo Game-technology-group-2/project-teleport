@@ -26,32 +26,30 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Camera::Camera(glm::vec3 up, float yaw, float pitch)
-        : Up(up),
-          Yaw(yaw),
+Camera::Camera(float yaw, float pitch)
+        : Yaw(yaw),
           Pitch(pitch) {
-//    updateCameraVectors();
 }
 
-void Camera::updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent) {
-    // Calculate the new front vector
-    glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    glm::vec3 normalizedFront {glm::normalize(front)};
-    // Normalize the vectors, because their length gets closer to 0
-    // the more you look up or down which results in slower movement.
-    playerPhysicsComponent.setFront(normalizedFront);
-    glm::vec3 worldUp {playerPhysicsComponent.getWorldUp()};
-    glm::vec3 normalizedRight = glm::normalize(glm::cross(normalizedFront, worldUp));
-    playerPhysicsComponent.setRight(normalizedRight);
-    Up = glm::normalize(glm::cross(normalizedRight, normalizedFront));
-}
+//void Camera::updateCameraVectors(PlayerPhysicsComponent & playerPhysicsComponent) {
+//    // Calculate the new front vector
+//    glm::vec3 front;
+//    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+//    front.y = sin(glm::radians(Pitch));
+//    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+//    glm::vec3 normalizedFront {glm::normalize(front)};
+//    // Normalize the vectors, because their length gets closer to 0
+//    // the more you look up or down which results in slower movement.
+//    playerPhysicsComponent.setFront(normalizedFront);
+//    glm::vec3 worldUp {playerPhysicsComponent.getWorldUp()};
+//    glm::vec3 normalizedRight = glm::normalize(glm::cross(normalizedFront, worldUp));
+//    playerPhysicsComponent.setRight(normalizedRight);
+//    Up = glm::normalize(glm::cross(normalizedRight, normalizedFront));
+//}
 
-glm::vec3 Camera::getUp() const {
-    return Up;
-}
+//glm::vec3 Camera::getUp() const {
+//    return Up;
+//}
 
 float Camera::getZoom() const {
     return Zoom;

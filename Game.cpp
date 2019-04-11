@@ -30,11 +30,11 @@
 
 
 Game::Game() {
-    camera = std::make_shared<Camera>(glm::vec3(0.0f, 1.0f, 0.0f),
+    camera = std::make_shared<Camera>(// glm::vec3(0.0f, 1.0f, 0.0f),
                                       Constants::DefaultCameraValues::yaw,
                                       Constants::DefaultCameraValues::pitch);
 
-    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent};
+    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(camera)};
 
     player = std::make_shared<GameObject>(new PlayerInputComponent(), playerPhysics,
                                           new PlayerGraphicsComponent(camera),

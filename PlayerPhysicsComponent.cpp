@@ -23,43 +23,66 @@
 #include "Constants.h"
 #include "Helpers.h"
 
+#include <iostream>
+#include <utility>
 
-PlayerPhysicsComponent::PlayerPhysicsComponent()
-        : movementSpeed(Constants::DefaultCameraValues::speed) {
-    glm::vec3 newFront;
-    auto pitch {Constants::DefaultCameraValues::pitch};
-    auto yaw {Constants::DefaultCameraValues::yaw};
-    newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    newFront.y = sin(glm::radians(pitch));
-    newFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front = glm::normalize(newFront);
-    right = glm::normalize(glm::cross(front, worldUp));
+
+PlayerPhysicsComponent::PlayerPhysicsComponent(std::shared_ptr<Camera> camera)
+        : camera(std::move(camera)) {
+    updateVectors();
 }
 
 void PlayerPhysicsComponent::update(GameObject & gameObject) {
     using namespace Helpers;
     float velocity = movementSpeed * Constants::MS_PER_FRAME;
 
+    auto position {gameObject.getPosition()};
     switch (gameObject.getDirection()) {
         case Direction::FORWARD:
-            gameObject.setPosition(gameObject.getPosition() + front * velocity);
+//            std::cout << "F" << std::endl;
+            gameObject.setPosition(position + front * velocity);
             break;
 
         case Direction::BACKWARD:
-            gameObject.setPosition(gameObject.getPosition() - front * velocity);
+//            std::cout << "B" << std::endl;
+            gameObject.setPosition(position - front * velocity);
             break;
 
         case Direction::LEFT:
-            gameObject.setPosition(gameObject.getPosition() - right * velocity);
+//            std::cout << "L" << std::endl;
+            gameObject.setPosition(position - right * velocity);
             break;
 
         case Direction::RIGHT:
-            gameObject.setPosition(gameObject.getPosition() + right * velocity);
+//            std::cout << "R" << std::endl;
+            gameObject.setPosition(position + right * velocity);
             break;
 
         default:
+//            std::cout << "D" << std::endl;
             break;
     }
+
+    updateVectors();
+
+//    std::cout << "{" << gameObject.getPosition().x
+//              << ", " << gameObject.getPosition().y
+//              << ", " << gameObject.getPosition().z
+//              << "}" << std::endl;
+}
+
+void PlayerPhysicsComponent::updateVectors() {
+    auto yaw {camera->getYaw()};
+    auto pitch {camera->getPitch()};
+    glm::vec3 newFront;
+    newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    newFront.y = sin(glm::radians(pitch));
+    newFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front = glm::normalize(newFront);
+    // Normalize the vectors, because their length gets closer to 0
+    // the more you look up or down which results in slower movement.
+    right = glm::normalize(glm::cross(front, worldUp));
+    up = glm::normalize(glm::cross(right, front));
 }
 
 const glm::vec3 & PlayerPhysicsComponent::getFront() const {
@@ -80,4 +103,8 @@ void PlayerPhysicsComponent::setRight(const glm::vec3 & right) {
 
 const glm::vec3 & PlayerPhysicsComponent::getWorldUp() const {
     return worldUp;
+}
+
+const glm::vec3 & PlayerPhysicsComponent::getUp() const {
+    return up;
 }

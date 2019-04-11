@@ -169,5 +169,5 @@ void Graphics::loadShaders() {
 }
 
 glm::mat4 Graphics::getViewMatrix() {
-    return glm::lookAt(player->getPosition(), player->getPosition() + playerPhysics->getFront(), camera->getUp());
+    return glm::lookAt(player->getPosition(), player->getPosition() + playerPhysics->getFront(), playerPhysics->getUp());
 }
