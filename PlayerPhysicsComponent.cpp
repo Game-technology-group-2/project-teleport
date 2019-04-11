@@ -34,7 +34,7 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(std::shared_ptr<Camera> camera)
 
 void PlayerPhysicsComponent::update(GameObject & gameObject) {
     using namespace Helpers;
-    float velocity = movementSpeed * Constants::MS_PER_FRAME;
+    float velocity = movementSpeed * (1.0 / Constants::MS_PER_FRAME);
 
     auto position {gameObject.getPosition()};
     switch (gameObject.getDirection()) {
