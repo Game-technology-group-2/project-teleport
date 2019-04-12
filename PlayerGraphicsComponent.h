@@ -23,17 +23,12 @@
 
 #include "GraphicsComponent.h"
 
-#include "Camera.h"
 #include "Graphics.h"
 
 
 class PlayerGraphicsComponent : public GraphicsComponent {
 public:
-    explicit PlayerGraphicsComponent(std::shared_ptr<Camera> camera);
     void update(GameObject & obj, Graphics & graphics) override;
-
-private:
-    std::shared_ptr<Camera> camera;
 };
 
 

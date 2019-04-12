@@ -30,19 +30,24 @@
 
 
 Game::Game() {
-    camera = std::make_shared<Camera>(// glm::vec3(0.0f, 1.0f, 0.0f),
-                                      Constants::DefaultCameraValues::yaw,
-                                      Constants::DefaultCameraValues::pitch);
+//    camera = std::make_shared<Camera>(// glm::vec3(0.0f, 1.0f, 0.0f),
+//                                      Constants::DefaultCameraValues::yaw,
+//                                      Constants::DefaultCameraValues::pitch);
 
-    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(camera)};
+    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(Constants::DefaultCameraValues::speed,
+                                                                       Constants::DefaultCameraValues::sensitivity,
+                                                                       Constants::DefaultCameraValues::worldUp,
+                                                                       Constants::DefaultCameraValues::yaw,
+                                                                       Constants::DefaultCameraValues::pitch)};
 
     player = std::make_shared<GameObject>(new PlayerInputComponent(), playerPhysics,
-                                          new PlayerGraphicsComponent(camera),
+                                          new PlayerGraphicsComponent(),
                                           Constants::spawnPosition);
 
     graphics = std::make_shared<Graphics>(Constants::BaseWindowSize::width,
                                           Constants::BaseWindowSize::height,
-                                          camera, player, playerPhysics);
+                                          Constants::DefaultCameraValues::zoom,
+                                          player, playerPhysics);
 }
 
 void Game::runEventLoop() {

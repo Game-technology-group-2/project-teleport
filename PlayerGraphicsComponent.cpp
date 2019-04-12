@@ -23,12 +23,6 @@
 #include <utility>
 
 
-PlayerGraphicsComponent::PlayerGraphicsComponent(std::shared_ptr<Camera> camera)
-        : camera(std::move(camera)) {
-
-}
-
 void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-//    camera->move(obj.getDirection(), 0.1);
     graphics.draw(0, 0, 0);
 }

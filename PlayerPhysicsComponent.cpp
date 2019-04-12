@@ -27,8 +27,12 @@
 #include <utility>
 
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(std::shared_ptr<Camera> camera)
-        : camera(std::move(camera)) {
+PlayerPhysicsComponent::PlayerPhysicsComponent(float movementSpeed,
+                                               float mouseSensitivity,
+                                               glm::vec3 worldUp, float yaw,
+                                               float pitch)
+        : movementSpeed(movementSpeed), mouseSensitivity(mouseSensitivity),
+          worldUp(worldUp), yaw(yaw), pitch(pitch) {
     updateVectors();
 }
 
@@ -78,8 +82,6 @@ void PlayerPhysicsComponent::update(GameObject & gameObject) {
 }
 
 void PlayerPhysicsComponent::updateVectors() {
-    auto yaw {camera->getYaw()};
-    auto pitch {camera->getPitch()};
     glm::vec3 newFront;
     newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     newFront.y = sin(glm::radians(pitch));
@@ -93,22 +95,6 @@ void PlayerPhysicsComponent::updateVectors() {
 
 const glm::vec3 & PlayerPhysicsComponent::getFront() const {
     return front;
-}
-
-void PlayerPhysicsComponent::setFront(const glm::vec3 & front) {
-    PlayerPhysicsComponent::front = front;
-}
-
-const glm::vec3 & PlayerPhysicsComponent::getRight() const {
-    return right;
-}
-
-void PlayerPhysicsComponent::setRight(const glm::vec3 & right) {
-    PlayerPhysicsComponent::right = right;
-}
-
-const glm::vec3 & PlayerPhysicsComponent::getWorldUp() const {
-    return worldUp;
 }
 
 const glm::vec3 & PlayerPhysicsComponent::getUp() const {

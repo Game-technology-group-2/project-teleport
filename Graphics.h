@@ -21,7 +21,6 @@
 #ifndef PROJECT_TELEPORT_GRAPHICS_H
 #define PROJECT_TELEPORT_GRAPHICS_H
 
-#include "Camera.h"
 #include "Model.h"
 #include "PlayerPhysicsComponent.h"
 #include "Shader.h"
@@ -35,7 +34,7 @@
 class Graphics {
 public:
     Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight,
-             std::shared_ptr<Camera> camera, std::shared_ptr<GameObject> player,
+             float zoom, std::shared_ptr<GameObject> player,
              PlayerPhysicsComponent * playerPhysics);
     ~Graphics();
     void draw(int x, int y, int z);
@@ -47,10 +46,10 @@ private:
     SDL_GLContext mainContext;
     unsigned int mainWindowWidth;
     unsigned int mainWindowHeight;
+    float zoom;
     std::shared_ptr<Shader> modelLoadingShader;
     std::vector<Model> models;
 //    std::vector<GLuint> skybox = std::vector<GLuint>(6);
-    std::shared_ptr<Camera> camera;
     std::shared_ptr<GameObject> player;
     PlayerPhysicsComponent * playerPhysics;
 

@@ -21,7 +21,6 @@
 #include "Graphics.h"
 
 #include "assetsPaths.h"
-#include "Camera.h"
 #include "Model.h"
 #include "Shader.h"
 
@@ -29,11 +28,10 @@
 
 
 Graphics::Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight,
-                   std::shared_ptr<Camera> camera, std::shared_ptr<GameObject> player,
+                   float zoom, std::shared_ptr<GameObject> player,
                    PlayerPhysicsComponent * playerPhysics)
         : mainWindowWidth(mainWindowWidth), mainWindowHeight(mainWindowHeight),
-          camera(std::move(camera)), player(std::move(player)),
-          playerPhysics(playerPhysics) {
+          player(std::move(player)), playerPhysics(playerPhysics), zoom(zoom) {
     setupRenderingContext();
     initializeGlew();
     loadShaders();
@@ -61,7 +59,7 @@ void Graphics::draw(int x, int y, int z) {
     modelLoadingShader->use();
 
     // view/projection transformations
-    glm::mat4 projection {glm::perspective(glm::radians(camera->getZoom()),
+    glm::mat4 projection {glm::perspective(glm::radians(zoom),
                                            (float)mainWindowWidth / (float)mainWindowHeight,
                                            0.1f, 100.0f)};
 

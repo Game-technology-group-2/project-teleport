@@ -30,6 +30,8 @@ namespace Constants {
     }
 
     namespace DefaultCameraValues {
+        const glm::vec3 worldUp {0.0f, 1.0f, 0.0f};
+        const glm::vec3 front {0.0f, 0.0f, -1.0f};
         const float yaw {-90.0f};
         const float pitch {0.0f};
         const float speed {1.0f};

@@ -23,34 +23,29 @@
 
 #include "PhysicsComponent.h"
 
-#include "Camera.h"
-
 #include <memory>
 
 
 class PlayerPhysicsComponent : public PhysicsComponent {
 public:
-    explicit PlayerPhysicsComponent(std::shared_ptr<Camera> camera);
+    PlayerPhysicsComponent(float movementSpeed, float mouseSensitivity,
+                           glm::vec3 worldUp, float yaw, float pitch);
 
     void update(GameObject & gameObject) override;
 
     const glm::vec3 & getFront() const;
-    void setFront(const glm::vec3 & front);
-
-    const glm::vec3 & getRight() const;
-    void setRight(const glm::vec3 & right);
-
-    const glm::vec3 & getWorldUp() const;
 
     const glm::vec3 & getUp() const;
 
 private:
-    std::shared_ptr<Camera> camera;
-    float movementSpeed {Constants::DefaultCameraValues::speed};
-    glm::vec3 worldUp {0.0f, 1.0f, 0.0f};
-    glm::vec3 up {0.0f, 1.0f, 0.0f};
-    glm::vec3 front {0.0f, 0.0f, -1.0f};
-    glm::vec3 right;
+    float movementSpeed;
+    float mouseSensitivity;
+    float yaw;
+    float pitch;
+    glm::vec3 worldUp;
+    glm::vec3 up {};
+    glm::vec3 front {};
+    glm::vec3 right {};
 
     void updateVectors();
 };

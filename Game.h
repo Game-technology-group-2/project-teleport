@@ -21,7 +21,6 @@
 #ifndef PROJECT_TELEPORT_GAME_H
 #define PROJECT_TELEPORT_GAME_H
 
-#include "Camera.h"
 #include "GameObject.h"
 #include "Graphics.h"
 
@@ -34,7 +33,6 @@ public:
     void runEventLoop();
 
 private:
-    std::shared_ptr<Camera> camera;
     std::shared_ptr<Graphics> graphics;
     std::shared_ptr<GameObject> player;
 };
