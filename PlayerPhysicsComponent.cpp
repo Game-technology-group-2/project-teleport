@@ -42,8 +42,24 @@ void PlayerPhysicsComponent::update(GameObject & gameObject) {
             gameObject.setPosition(position + front * velocity);
             break;
 
+        case Direction::FORWARD_LEFT:
+            gameObject.setPosition(position + front * velocity - right * velocity);
+            break;
+
+        case Direction::FORWARD_RIGHT:
+            gameObject.setPosition(position + front * velocity + right * velocity);
+            break;
+
         case Direction::BACKWARD:
             gameObject.setPosition(position - front * velocity);
+            break;
+
+        case Direction::BACKWARD_LEFT:
+            gameObject.setPosition(position - front * velocity - right * velocity);
+            break;
+
+        case Direction::BACKWARD_RIGHT:
+            gameObject.setPosition(position - front * velocity + right * velocity);
             break;
 
         case Direction::LEFT:

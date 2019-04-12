@@ -66,6 +66,10 @@ void PlayerInputComponent::update(GameObject & gameObject) {
         } else {
             direction = Helpers::Direction::BACKWARD;
         }
+    } else if (left) {
+        direction = Helpers::Direction::LEFT;
+    } else if (right) {
+        direction = Helpers::Direction::RIGHT;
     }
 
     gameObject.setDirection(direction);
