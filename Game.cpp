@@ -30,10 +30,6 @@
 
 
 Game::Game() {
-//    camera = std::make_shared<Camera>(// glm::vec3(0.0f, 1.0f, 0.0f),
-//                                      Constants::DefaultCameraValues::yaw,
-//                                      Constants::DefaultCameraValues::pitch);
-
     PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(Constants::DefaultCameraValues::speed,
                                                                        Constants::DefaultCameraValues::sensitivity,
                                                                        Constants::DefaultCameraValues::worldUp,
