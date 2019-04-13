@@ -18,9 +18,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "PlayerGraphicsComponent.h"
+#include "TurretGraphicsComponent.h"
 
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
+void TurretGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
     graphics.draw(0, 0, 0);
 }

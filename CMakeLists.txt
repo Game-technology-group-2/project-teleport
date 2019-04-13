@@ -18,7 +18,10 @@ set(srcs main.cpp
         PlayerInputComponent.cpp PlayerInputComponent.h
         PlayerPhysicsComponent.cpp PlayerPhysicsComponent.h
         Shader.h Shader.cpp
-        stb_image.h)
+        stb_image.h
+        TurretGraphicsComponent.cpp TurretGraphicsComponent.h
+        TurretInputComponent.cpp TurretInputComponent.h
+        TurretPhysicsComponent.cpp TurretPhysicsComponent.h)
 
 add_executable(project_teleport ${srcs})
 

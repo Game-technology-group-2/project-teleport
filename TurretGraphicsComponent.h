@@ -18,9 +18,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "PlayerGraphicsComponent.h"
+#ifndef PROJECT_TELEPORT_TURRETGRAPHICSCOMPONENT_H
+#define PROJECT_TELEPORT_TURRETGRAPHICSCOMPONENT_H
+
+#include "GraphicsComponent.h"
+
+#include "Graphics.h"
 
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    graphics.draw(0, 0, 0);
-}
+class TurretGraphicsComponent : public GraphicsComponent {
+public:
+    void update(GameObject & obj, Graphics & graphics) override;
+};
+
+
+#endif //PROJECT_TELEPORT_TURRETGRAPHICSCOMPONENT_H

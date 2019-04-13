@@ -18,9 +18,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "PlayerGraphicsComponent.h"
+#ifndef PROJECT_TELEPORT_TURRETPHYSICSCOMPONENT_H
+#define PROJECT_TELEPORT_TURRETPHYSICSCOMPONENT_H
+
+#include "PhysicsComponent.h"
+
+#include <memory>
 
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    graphics.draw(0, 0, 0);
-}
+class TurretPhysicsComponent : public PhysicsComponent {
+public:
+    TurretPhysicsComponent(glm::vec3 worldUp, float yaw, float pitch);
+
+    void update(GameObject & gameObject) override;
+
+    const glm::vec3 & getFront() const;
+
+    const glm::vec3 & getUp() const;
+
+private:
+    float yaw;
+    float pitch;
+    glm::vec3 worldUp;
+    glm::vec3 up {};
+    glm::vec3 front {};
+    glm::vec3 right {};
+
+    void updateVectors();
+};
+
+
+#endif //PROJECT_TELEPORT_TURRETPHYSICSCOMPONENT_H

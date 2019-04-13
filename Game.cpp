@@ -20,10 +20,15 @@
 
 #include "Game.h"
 
+#include "assetsPaths.h"
 #include "Constants.h"
+#include "Model.h"
 #include "PlayerGraphicsComponent.h"
 #include "PlayerInputComponent.h"
 #include "PlayerPhysicsComponent.h"
+#include "TurretGraphicsComponent.h"
+#include "TurretInputComponent.h"
+#include "TurretPhysicsComponent.h"
 
 #include <memory>
 #include <SDL2/SDL.h>
@@ -44,6 +49,11 @@ Game::Game() {
                                           Constants::BaseWindowSize::height,
                                           Constants::DefaultCameraValues::zoom,
                                           player, playerPhysics);
+
+    GameObject turret {new TurretInputComponent(), new TurretPhysicsComponent({}, {}, {}),
+                       new TurretGraphicsComponent(/*Model(assetsPaths::nanosuitModel)*/),
+                       Constants::spawnPosition};
+
 }
 
 void Game::runEventLoop() {

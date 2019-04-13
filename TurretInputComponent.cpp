@@ -18,9 +18,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "PlayerGraphicsComponent.h"
+#include "TurretInputComponent.h"
 
+void TurretInputComponent::update(GameObject & gameObject) {
 
-void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    graphics.draw(0, 0, 0);
 }

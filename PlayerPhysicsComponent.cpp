@@ -23,9 +23,6 @@
 #include "Constants.h"
 #include "Helpers.h"
 
-#include <iostream>
-#include <utility>
-
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(float movementSpeed,
                                                float mouseSensitivity,
