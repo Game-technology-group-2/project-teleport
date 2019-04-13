@@ -23,6 +23,7 @@
 
 #include "GameObject.h"
 #include "Graphics.h"
+#include "World.h"
 
 #include <memory>
 
@@ -33,8 +34,7 @@ public:
     void runEventLoop();
 
 private:
-    std::shared_ptr<Graphics> graphics;
-    std::shared_ptr<GameObject> player;
+    std::unique_ptr<World> world;
 };
 
 

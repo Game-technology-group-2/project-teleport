@@ -140,11 +140,11 @@ void Graphics::setupRenderingContext() {
                                  + std::string(SDL_GetError()));
     }
 
-    auto relativeMouseMode = SDL_SetRelativeMouseMode(SDL_TRUE);
-    if (relativeMouseMode) {
-        throw std::runtime_error("Unable to capture the mouse : "
-                                 + std::string(SDL_GetError()));
-    }
+//    auto relativeMouseMode = SDL_SetRelativeMouseMode(SDL_TRUE);
+//    if (relativeMouseMode) {
+//        throw std::runtime_error("Unable to capture the mouse : "
+//                                 + std::string(SDL_GetError()));
+//    }
 
     this->mainContext = SDL_GL_CreateContext(this->mainWindow);
 

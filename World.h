@@ -18,9 +18,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "TurretInputComponent.h"
+#ifndef PROJECT_TELEPORT_WORLD_H
+#define PROJECT_TELEPORT_WORLD_H
 
 
-void TurretInputComponent::update(GameObject & gameObject) {
+class World {
+public:
+    virtual void update() = 0;
 
-}
+    virtual const std::shared_ptr<Graphics> & getGraphics() const = 0;
+};
+
+
+#endif //PROJECT_TELEPORT_WORLD_H

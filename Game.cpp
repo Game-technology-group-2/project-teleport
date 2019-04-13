@@ -20,40 +20,15 @@
 
 #include "Game.h"
 
-#include "assetsPaths.h"
 #include "Constants.h"
-#include "Model.h"
-#include "PlayerGraphicsComponent.h"
-#include "PlayerInputComponent.h"
-#include "PlayerPhysicsComponent.h"
-#include "TurretGraphicsComponent.h"
-#include "TurretInputComponent.h"
-#include "TurretPhysicsComponent.h"
+#include "DemoWorld.h"
 
 #include <memory>
 #include <SDL2/SDL.h>
 
 
 Game::Game() {
-    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(Constants::DefaultCameraValues::speed,
-                                                                       Constants::DefaultCameraValues::sensitivity,
-                                                                       Constants::DefaultCameraValues::worldUp,
-                                                                       Constants::DefaultCameraValues::yaw,
-                                                                       Constants::DefaultCameraValues::pitch)};
-
-    player = std::make_shared<GameObject>(new PlayerInputComponent(), playerPhysics,
-                                          new PlayerGraphicsComponent(),
-                                          Constants::spawnPosition);
-
-    graphics = std::make_shared<Graphics>(Constants::BaseWindowSize::width,
-                                          Constants::BaseWindowSize::height,
-                                          Constants::DefaultCameraValues::zoom,
-                                          player, playerPhysics);
-
-    GameObject turret {new TurretInputComponent(), new TurretPhysicsComponent({}, {}, {}),
-                       new TurretGraphicsComponent(/*Model(assetsPaths::nanosuitModel)*/),
-                       Constants::spawnPosition};
-
+    world = std::make_unique<DemoWorld>();
 }
 
 void Game::runEventLoop() {
@@ -69,15 +44,15 @@ void Game::runEventLoop() {
                     break;
 
                 case SDL_WINDOWEVENT:
-                    graphics->handleWindowEvent(sdlEvent.window);
+                    world->getGraphics()->handleWindowEvent(sdlEvent.window);
                     break;
 
                 default:
                     break;
             }
         }
-        player->update(*graphics);
-        graphics->renderFrame();
+
+        world->update();
 
         // Wait a bit if rendering too fast
         auto currentTime {SDL_GetTicks()};

@@ -18,9 +18,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "TurretInputComponent.h"
+#ifndef PROJECT_TELEPORT_DEMOWORLD_H
+#define PROJECT_TELEPORT_DEMOWORLD_H
+
+#include "GameObject.h"
+#include "World.h"
+
+#include <vector>
 
 
-void TurretInputComponent::update(GameObject & gameObject) {
+class DemoWorld : public World {
+public:
+    DemoWorld();
 
-}
+    void update() override;
+
+    const std::shared_ptr<Graphics> & getGraphics() const override;
+
+private:
+    // "player" is special (it's the camera and all), so it's apart from the
+    // worldObjects vector to avoid mistakes such as deleting it.
+    // I know this is a code smell. It should be refactored later.
+    std::shared_ptr<GameObject> player;
+    std::shared_ptr<Graphics> graphics;
+    std::vector<GameObject> worldObjects;
+};
+
+
+#endif //PROJECT_TELEPORT_DEMOWORLD_H
+

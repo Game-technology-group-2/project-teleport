@@ -6,6 +6,7 @@ project(project_teleport LANGUAGES CXX)
 set(srcs main.cpp
         assetsPaths.h
         Constants.h
+        DemoWorld.cpp DemoWorld.h
         Game.cpp Game.h
         GameObject.cpp GameObject.h
         Graphics.cpp Graphics.h
@@ -21,7 +22,8 @@ set(srcs main.cpp
         stb_image.h
         TurretGraphicsComponent.cpp TurretGraphicsComponent.h
         TurretInputComponent.cpp TurretInputComponent.h
-        TurretPhysicsComponent.cpp TurretPhysicsComponent.h)
+        TurretPhysicsComponent.cpp TurretPhysicsComponent.h
+        World.h)
 
 add_executable(project_teleport ${srcs})
 
