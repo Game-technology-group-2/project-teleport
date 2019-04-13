@@ -35,7 +35,7 @@ class Graphics {
 public:
     Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight,
              float zoom, std::shared_ptr<GameObject> player,
-             PlayerPhysicsComponent * playerPhysics);
+             std::shared_ptr<PlayerPhysicsComponent> playerPhysics);
     ~Graphics();
     void draw(int x, int y, int z);
     void renderFrame();
@@ -51,7 +51,7 @@ private:
     std::vector<Model> models;
 //    std::vector<GLuint> skybox = std::vector<GLuint>(6);
     std::shared_ptr<GameObject> player;
-    PlayerPhysicsComponent * playerPhysics;
+    std::shared_ptr<PlayerPhysicsComponent> playerPhysics;
 
     void loadModels();
     void initializeGlew();

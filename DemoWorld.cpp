@@ -32,14 +32,15 @@
 
 
 DemoWorld::DemoWorld() {
-    PlayerPhysicsComponent * playerPhysics {new PlayerPhysicsComponent(Constants::DefaultCameraValues::speed,
-                                                                       Constants::DefaultCameraValues::sensitivity,
-                                                                       Constants::DefaultCameraValues::worldUp,
-                                                                       Constants::DefaultCameraValues::yaw,
-                                                                       Constants::DefaultCameraValues::pitch)};
+    auto playerPhysics {std::make_shared<PlayerPhysicsComponent>(Constants::DefaultCameraValues::speed,
+                                                                 Constants::DefaultCameraValues::sensitivity,
+                                                                 Constants::DefaultCameraValues::worldUp,
+                                                                 Constants::DefaultCameraValues::yaw,
+                                                                 Constants::DefaultCameraValues::pitch)};
 
-    player = std::make_shared<GameObject>(new PlayerInputComponent(), playerPhysics,
-                                          new PlayerGraphicsComponent(),
+    player = std::make_shared<GameObject>(std::make_shared<PlayerInputComponent>(),
+                                          playerPhysics,
+                                          std::make_shared<PlayerGraphicsComponent>(),
                                           Constants::spawnPosition);
 
     graphics = std::make_shared<Graphics>(Constants::BaseWindowSize::width,
@@ -47,8 +48,9 @@ DemoWorld::DemoWorld() {
                                           Constants::DefaultCameraValues::zoom,
                                           player, playerPhysics);
 
-//    GameObject turret {new TurretInputComponent(), new TurretPhysicsComponent(Constants::DefaultCameraValues::worldUp, 0, 0),
-//                       new TurretGraphicsComponent(/*Model(assetsPaths::nanosuitModel)*/),
+//    GameObject turret {std::make_shared<TurretInputComponent>(),
+//                       std::make_shared<TurretPhysicsComponent>(Constants::DefaultCameraValues::worldUp, 0, 0),
+//                       std::make_shared<TurretGraphicsComponent>(/*Model(assetsPaths::nanosuitModel)*/),
 //                       Constants::spawnPosition};
 //
 //    worldObjects.push_back(turret);

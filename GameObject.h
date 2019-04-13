@@ -34,12 +34,10 @@ class PhysicsComponent;
 
 class GameObject {
 public:
-    GameObject(InputComponent * input,
-               PhysicsComponent * physics,
-               GraphicsComponent * graphics,
+    GameObject(std::shared_ptr<InputComponent> input,
+               std::shared_ptr<PhysicsComponent> physics,
+               std::shared_ptr<GraphicsComponent> graphics,
                glm::vec3 position);
-
-    virtual ~GameObject();
 
     void update(Graphics & graphics);
 
@@ -51,19 +49,19 @@ public:
 
     void setVelocity(int velocity);
 
-    InputComponent * getInputComponent() const;
+    std::shared_ptr<InputComponent> getInputComponent() const;
 
-    GraphicsComponent * getGraphicsComponent() const;
+    std::shared_ptr<GraphicsComponent> getGraphicsComponent() const;
 
-    PhysicsComponent * getPhysicsComponent() const;
+    std::shared_ptr<PhysicsComponent> getPhysicsComponent() const;
 
 private:
     glm::vec3 position;
     Helpers::Direction direction;
     int velocity;
-    InputComponent * inputComponent;
-    PhysicsComponent * physicsComponent;
-    GraphicsComponent * graphicsComponent;
+    std::shared_ptr<InputComponent> inputComponent;
+    std::shared_ptr<PhysicsComponent> physicsComponent;
+    std::shared_ptr<GraphicsComponent> graphicsComponent;
 };
 
 

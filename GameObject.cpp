@@ -26,19 +26,13 @@
 #include <utility>
 
 
-GameObject::GameObject(InputComponent * input,
-                       PhysicsComponent * physics,
-                       GraphicsComponent * graphics,
+GameObject::GameObject(std::shared_ptr<InputComponent> input,
+                       std::shared_ptr<PhysicsComponent> physics,
+                       std::shared_ptr<GraphicsComponent> graphics,
                        glm::vec3 position)
-        : inputComponent(input), physicsComponent(physics),
-          graphicsComponent(graphics), position(position) {
+        : inputComponent(std::move(input)), physicsComponent(std::move(physics)),
+          graphicsComponent(std::move(graphics)), position(position) {
 
-}
-
-GameObject::~GameObject() {
-    delete inputComponent;
-    delete physicsComponent;
-    delete graphicsComponent;
 }
 
 void GameObject::update(Graphics & graphics) {
@@ -67,14 +61,14 @@ void GameObject::setVelocity(int velocity) {
     this->velocity = velocity;
 }
 
-InputComponent * GameObject::getInputComponent() const {
+std::shared_ptr<InputComponent> GameObject::getInputComponent() const {
     return inputComponent;
 }
 
-PhysicsComponent * GameObject::getPhysicsComponent() const {
+std::shared_ptr<PhysicsComponent> GameObject::getPhysicsComponent() const {
     return physicsComponent;
 }
 
-GraphicsComponent * GameObject::getGraphicsComponent() const {
+std::shared_ptr<GraphicsComponent> GameObject::getGraphicsComponent() const {
     return graphicsComponent;
 }

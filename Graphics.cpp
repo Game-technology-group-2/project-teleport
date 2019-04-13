@@ -29,9 +29,10 @@
 
 Graphics::Graphics(unsigned int mainWindowWidth, unsigned int mainWindowHeight,
                    float zoom, std::shared_ptr<GameObject> player,
-                   PlayerPhysicsComponent * playerPhysics)
+                   std::shared_ptr<PlayerPhysicsComponent> playerPhysics)
         : mainWindowWidth(mainWindowWidth), mainWindowHeight(mainWindowHeight),
-          player(std::move(player)), playerPhysics(playerPhysics), zoom(zoom) {
+          player(std::move(player)), playerPhysics(std::move(playerPhysics)),
+          zoom(zoom) {
     setupRenderingContext();
     initializeGlew();
     loadShaders();
