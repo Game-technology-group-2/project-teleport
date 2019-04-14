@@ -24,12 +24,13 @@
 #ifndef PROJECT_TELEPORT_MESH_H
 #define PROJECT_TELEPORT_MESH_H
 
+#include "Shader.h"
+
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <string>
 #include <vector>
 
-#include "Shader.h"
 
 struct Vertex {
     glm::vec3 Position;
@@ -56,7 +57,9 @@ public:
     void draw(Shader shader);
 
 private:
-    unsigned int VAO, VBO, EBO;
+    unsigned int VAO {};
+    unsigned int VBO {};
+    unsigned int EBO {};
 
     void setupMesh();
 };

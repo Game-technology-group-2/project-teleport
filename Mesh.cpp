@@ -23,16 +23,15 @@
 
 #include "Mesh.h"
 
-#include <vector>
-
 #include "assetsPaths.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-           std::vector<Texture> textures) {
-    this->vertices = vertices;
-    this->indices = indices;
-    this->textures = textures;
+#include <utility>
+#include <vector>
 
+
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
+           std::vector<Texture> textures)
+           : vertices(std::move(vertices)), indices(std::move(indices)), textures (std::move(textures)){
     setupMesh();
 }
 

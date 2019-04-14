@@ -25,6 +25,10 @@
 #ifndef PROJECT_TELEPORT_MODEL_H
 #define PROJECT_TELEPORT_MODEL_H
 
+#include "Mesh.h"
+#include "Shader.h"
+#include "stb_image.h"
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -37,13 +41,8 @@
 #include <string>
 #include <vector>
 
-#include "stb_image.h"
 
-#include "Mesh.h"
-#include "Shader.h"
-
-
-unsigned int TextureFromFile(const char *path, const std::string &directory,
+unsigned int TextureFromFile(const char * path, const std::string &directory,
                              bool gamma = false);
 
 class Model {
@@ -55,7 +54,7 @@ public:
     bool gammaCorrection;
 
     // constructor, expects a filepath to a 3D model.
-    Model(std::string const & path, bool gamma = false);
+    Model(const std::string & path, bool gamma = false);
 
     // draws the model, and thus all its meshes
     void draw(Shader shader);
@@ -63,21 +62,24 @@ public:
 private:
     // loads a model with supported ASSIMP extensions from file
     // and stores the resulting meshes in the meshes vector.
-    void loadModel(std::string const &path);
+    void loadModel(const std::string & path);
 
     // Processes a node in a recursive fashion.
     // Processes each individual mesh located at the node
     // and repeats this process on its children nodes (if any).
-    void processNode(aiNode *node, const aiScene *scene);
+    void processNode(aiNode * node, const aiScene * scene);
 
-    Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+    Mesh processMesh(aiMesh * mesh, const aiScene * scene);
 
     // Checks all material textures of a given type
     // and loads the textures if they're not loaded yet.
     // The required info is returned as a Texture struct.
-    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+    std::vector<Texture> loadMaterialTextures(aiMaterial * mat,
+                                              aiTextureType type,
+                                              const std::string & typeName);
 };
 
-unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma);
+unsigned int TextureFromFile(const char * path, const std::string & directory,
+                             bool gamma);
 
 #endif //PROJECT_TELEPORT_MODEL_H
