@@ -37,7 +37,7 @@ public:
              float zoom, std::shared_ptr<GameObject> player,
              std::shared_ptr<PlayerPhysicsComponent> playerPhysics);
     ~Graphics();
-    void draw(int x, int y, int z);
+    void draw(Model model, glm::vec3 position, glm::vec3 scale);
     void renderFrame();
     void handleWindowEvent(const SDL_WindowEvent & windowEvent);
 

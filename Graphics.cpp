@@ -55,7 +55,7 @@ void Graphics::loadModels() {
                     Model(assetsPaths::nanosuitModel)};
 }
 
-void Graphics::draw(int x, int y, int z) {
+void Graphics::draw(Model model, glm::vec3 position, glm::vec3 scale) {
     // Don't forget to enable shader before setting uniforms
     modelLoadingShader->use();
 
@@ -68,12 +68,12 @@ void Graphics::draw(int x, int y, int z) {
     modelLoadingShader->setMat4("view", getViewMatrix());
 
     // Render the loaded model
-    glm::mat4 model {glm::mat4(1.0f)};
-    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+    glm::mat4 modelAttributes {glm::mat4(1.0f)};
+    modelAttributes = glm::translate(modelAttributes, position); // translate it down so it's at the center of the scene
+    modelAttributes = glm::scale(modelAttributes, scale);	// it's a bit too big for our scene, so scale it down
 
-    modelLoadingShader->setMat4("model", model);
-    models[2].draw(*modelLoadingShader);
+    modelLoadingShader->setMat4("model", modelAttributes);
+    model.draw(*modelLoadingShader);
 
     glUseProgram(0);
 }

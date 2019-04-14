@@ -28,7 +28,12 @@
 
 class TurretGraphicsComponent : public GraphicsComponent {
 public:
+    explicit TurretGraphicsComponent(std::shared_ptr<Model> model);
+
     void update(GameObject & obj, Graphics & graphics) override;
+
+private:
+    std::shared_ptr<Model> model;
 };
 
 

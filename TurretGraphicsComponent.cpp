@@ -1,3 +1,5 @@
+#include <utility>
+
 /**
  * This file is part of Project Teleport, a game written in C++ using the SDL2
  * library and OpenGL API.
@@ -21,6 +23,11 @@
 #include "TurretGraphicsComponent.h"
 
 
+TurretGraphicsComponent::TurretGraphicsComponent(std::shared_ptr<Model> model)
+        : model(std::move(model)) {
+
+}
+
 void TurretGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    graphics.draw(0, 0, 0);
+    graphics.draw(*model, glm::vec3{0.0f, -1.75f, 0.0f}, glm::vec3{0.2f, 0.2f, 0.2f});
 }

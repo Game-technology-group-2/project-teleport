@@ -48,12 +48,14 @@ DemoWorld::DemoWorld() {
                                           Constants::DefaultCameraValues::zoom,
                                           player, playerPhysics);
 
-//    GameObject turret {std::make_shared<TurretInputComponent>(),
-//                       std::make_shared<TurretPhysicsComponent>(Constants::DefaultCameraValues::worldUp, 0, 0),
-//                       std::make_shared<TurretGraphicsComponent>(/*Model(assetsPaths::nanosuitModel)*/),
-//                       Constants::spawnPosition};
-//
-//    worldObjects.push_back(turret);
+    auto turretModel {std::make_shared<Model>(Model(assetsPaths::nanosuitModel))};
+
+    GameObject turret {std::make_shared<TurretInputComponent>(),
+                       std::make_shared<TurretPhysicsComponent>(Constants::DefaultCameraValues::worldUp, 0, 0),
+                       std::make_shared<TurretGraphicsComponent>(turretModel),
+                       Constants::spawnPosition};
+
+    worldObjects.push_back(turret);
 }
 
 void DemoWorld::update() {

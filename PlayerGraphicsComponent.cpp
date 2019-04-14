@@ -22,5 +22,5 @@
 
 
 void PlayerGraphicsComponent::update(GameObject & obj, Graphics & graphics) {
-    graphics.draw(0, 0, 0);
+
 }
