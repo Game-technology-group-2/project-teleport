@@ -54,12 +54,16 @@ void Game::runEventLoop() {
 
         world->update();
 
-        // Wait a bit if rendering too fast
-        auto currentTime {SDL_GetTicks()};
-        auto maximumTime {startTime + Constants::MS_PER_FRAME};
-        // Only wait if going faster than the expected update rate
-        if (currentTime < maximumTime) {
-            SDL_Delay(maximumTime - currentTime);
-        }
+        regulateFramerate(startTime);
+    }
+}
+
+void Game::regulateFramerate(const Uint32 & startTime) {
+    // Wait a bit if rendering too fast
+    auto currentTime {SDL_GetTicks()};
+    auto maximumTime {startTime + Constants::MS_PER_FRAME};
+    // Only wait if going faster than the expected update rate
+    if (currentTime < maximumTime) {
+        SDL_Delay(maximumTime - currentTime);
     }
 }

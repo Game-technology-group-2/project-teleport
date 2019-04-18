@@ -35,6 +35,8 @@ public:
 
 private:
     std::unique_ptr<World> world;
+
+    void regulateFramerate(const Uint32 & startTime);
 };
 
 
