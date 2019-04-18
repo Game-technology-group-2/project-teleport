@@ -49,10 +49,6 @@ Graphics::~Graphics() {
 
 void Graphics::loadModels() {
 //    loadCubeMap(assetsPaths::skyboxTextures, this->skybox);
-
-    this->models = {Model(assetsPaths::cubeModel),
-                    Model(assetsPaths::deskModel),
-                    Model(assetsPaths::nanosuitModel)};
 }
 
 void Graphics::draw(Model model, glm::vec3 position, glm::vec3 scale) {

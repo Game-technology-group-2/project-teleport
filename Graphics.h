@@ -48,7 +48,6 @@ private:
     unsigned int mainWindowHeight;
     float zoom;
     std::shared_ptr<Shader> modelLoadingShader;
-    std::vector<Model> models;
 //    std::vector<GLuint> skybox = std::vector<GLuint>(6);
     std::shared_ptr<GameObject> player;
     std::shared_ptr<PlayerPhysicsComponent> playerPhysics;
