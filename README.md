@@ -4,6 +4,10 @@
 
 A game written in C++, using OpenGL and SDL2, glm and Glew.
 
+## Licenses ##
+This project is licensed under the GNU GPLv3 License.
+
+The music file `bensound-instinct.ogg` is sourced from `www.bensound.com`.
 
 ## Dependencies ##
 * SDL2

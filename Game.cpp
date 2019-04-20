@@ -20,6 +20,8 @@
 
 #include "Game.h"
 
+#include "assetsPaths.h"
+#include "Audio.h"
 #include "Constants.h"
 #include "DemoWorld.h"
 
@@ -33,6 +35,9 @@ Game::Game() {
 
 void Game::runEventLoop() {
     bool running {true};
+
+    auto mainMusic {Audio(assetsPaths::Audio::mainMusic)};
+    mainMusic.play();
 
     while (running) {
         auto startTime {SDL_GetTicks()};

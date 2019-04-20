@@ -59,6 +59,10 @@ namespace assetsPaths {
 
     const Shader modelLoadingShader {"shaders/modelLoading.vert",
                                      "shaders/modelLoading.frag"};
+
+    namespace Audio {
+        const std::string mainMusic {"assets/audio/music/bensound-instinct.ogg"};
+    }
 }
 
 #endif // PROJECT_TELEPORT_ASSETSPATHS_H

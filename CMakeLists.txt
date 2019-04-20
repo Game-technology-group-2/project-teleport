@@ -3,8 +3,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(project_teleport LANGUAGES CXX)
 
-set(srcs main.cpp
+add_executable(project_teleport
+        main.cpp
         assetsPaths.h
+        Audio.cpp Audio.h
         Constants.h
         DemoWorld.cpp DemoWorld.h
         Game.cpp Game.h
@@ -25,8 +27,6 @@ set(srcs main.cpp
         TurretPhysicsComponent.cpp TurretPhysicsComponent.h
         World.h)
 
-add_executable(project_teleport ${srcs})
-
 find_package(assimp REQUIRED)
 target_link_libraries(project_teleport PRIVATE ${ASSIMP_LIBRARIES})
 target_include_directories(project_teleport PRIVATE ${ASSIMP_INCLUDE_DIR})
@@ -42,6 +42,9 @@ endif (NOT GLM_FOUND)
 find_package(OpenGL REQUIRED)
 target_link_libraries(project_teleport PRIVATE OpenGL::GL)
 
+find_package(SFML REQUIRED COMPONENTS audio)
+target_link_libraries(project_teleport PRIVATE sfml-audio)
+
 ## The modern way is not yet supported by some distros apparently (Ubuntu, Debian, Travis..).
 ## Gotta love working with 3 years old package versions...
 #### MODERN WAY (can't use it for now)
@@ -49,7 +52,7 @@ target_link_libraries(project_teleport PRIVATE OpenGL::GL)
 #target_link_libraries(project_teleport PRIVATE SDL2::SDL2 SDL2::SDL2main)
 #### "OLD" WAY (needed for "stable" distros)
 find_package(PkgConfig)
-PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2 REQUIRED COMPONENTS sdl2)
 target_include_directories(project_teleport PRIVATE ${SDL2_INCLUDE_DIRS})
 target_link_libraries(project_teleport PRIVATE ${SDL2_LIBRARIES})
 
