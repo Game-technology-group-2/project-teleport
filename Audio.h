@@ -31,6 +31,8 @@ public:
 
 private:
     sf::Music music;
+
+    Audio() = default;
 };
 
 
