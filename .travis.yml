@@ -11,8 +11,6 @@ compiler:
 
 addons:
   apt:
-    sources:
-      - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ disco main'
     packages:
       - libassimp-dev
       - libsdl2-dev
