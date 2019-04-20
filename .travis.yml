@@ -15,11 +15,17 @@ addons:
       - libassimp-dev
       - libsdl2-dev
       - libsdl2-image-dev
-      - libsfml-dev
+#      - libsfml-dev   # Installing manuallly in the before_script (version too old here)
 #      - libglm-dev    # Wrong CMake target mitigated by CMake config. Package no longer used.
       - libglew-dev
 
+install:
+  - git clone https://github.com/SFML/SFML.git
+
 before_script:
+  - wget https://www.sfml-dev.org/files/SFML-2.5.1-linux-gcc-64-bit.tar.gz -O /tmp/sfml.tar.gz
+  - tar -xvf /tmp/sfml.tar.gz
+  - sudo cp -r SFML-2.5.1/* /usr/
   - mkdir build
   - cd build
   - cmake ..

@@ -42,7 +42,7 @@ endif (NOT GLM_FOUND)
 find_package(OpenGL REQUIRED)
 target_link_libraries(project_teleport PRIVATE OpenGL::GL)
 
-find_package(SFML REQUIRED COMPONENTS audio)
+find_package(SFML REQUIRED audio)
 target_link_libraries(project_teleport PRIVATE sfml-audio)
 
 ## The modern way is not yet supported by some distros apparently (Ubuntu, Debian, Travis..).
