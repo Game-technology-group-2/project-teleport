@@ -36,7 +36,7 @@ Game::Game() {
 void Game::runEventLoop() {
     bool running {true};
 
-    auto mainMusic {Audio(assetsPaths::Audio::mainMusic)};
+    Audio mainMusic {assetsPaths::Audio::mainMusic};
     mainMusic.play();
 
     while (running) {
