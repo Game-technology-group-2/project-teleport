@@ -26,7 +26,7 @@
 
 class Audio {
 public:
-    Audio(const std::string & fileName);
+    explicit Audio(const std::string & fileName);
     void play();
 
 private:
