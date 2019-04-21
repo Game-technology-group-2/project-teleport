@@ -15,6 +15,9 @@ addons:
       - libassimp-dev
       - libsdl2-dev
       - libsdl2-image-dev
+      - libopenal-dev  # SFML audio
+      - libflac-dev    # SFML audio
+      - libvorbis-dev  # SFML audio
 #      - libsfml-dev   # Installing manuallly in the before_script (version too old here)
 #      - libglm-dev    # Wrong CMake target mitigated by CMake config. Package no longer used.
       - libglew-dev
