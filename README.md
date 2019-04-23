@@ -12,6 +12,7 @@ The music file `bensound-instinct.ogg` is sourced from `www.bensound.com`.
 ## Dependencies ##
 * SDL2
 * SDL2_image
+* SFML (only for the audio)
 * OpenGL
 * Glew
 * GLM (included as a submodule)
